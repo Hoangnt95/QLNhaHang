@@ -1,44 +1,29 @@
-<<<<<<< HEAD
-D:\FPT- Polytechnic\PRO1041\DuAnQuanLyNhaHangHAK\DuAn1\src\main\java\entity\KhuyenMai.java
-D:\FPT- Polytechnic\PRO1041\DuAnQuanLyNhaHangHAK\DuAn1\src\main\java\repository\ICommonRepository.java
-D:\FPT- Polytechnic\PRO1041\DuAnQuanLyNhaHangHAK\DuAn1\src\main\java\entity\DonHangChiTiet.java
-D:\FPT- Polytechnic\PRO1041\DuAnQuanLyNhaHangHAK\DuAn1\src\main\java\entity\KhachHang.java
-D:\FPT- Polytechnic\PRO1041\DuAnQuanLyNhaHangHAK\DuAn1\src\main\java\view\DangNhap.java
-D:\FPT- Polytechnic\PRO1041\DuAnQuanLyNhaHangHAK\DuAn1\src\main\java\view\TrangChu.java
-D:\FPT- Polytechnic\PRO1041\DuAnQuanLyNhaHangHAK\DuAn1\src\main\java\entity\DonHang.java
-D:\FPT- Polytechnic\PRO1041\DuAnQuanLyNhaHangHAK\DuAn1\src\main\java\util\HibernateUtil.java
-D:\FPT- Polytechnic\PRO1041\DuAnQuanLyNhaHangHAK\DuAn1\src\main\java\entity\Ban.java
-D:\FPT- Polytechnic\PRO1041\DuAnQuanLyNhaHangHAK\DuAn1\src\main\java\entity\NhanVien.java
-D:\FPT- Polytechnic\PRO1041\DuAnQuanLyNhaHangHAK\DuAn1\src\main\java\entity\ThucDon.java
-D:\FPT- Polytechnic\PRO1041\DuAnQuanLyNhaHangHAK\DuAn1\src\main\java\entity\HoaDon.java
-D:\FPT- Polytechnic\PRO1041\DuAnQuanLyNhaHangHAK\DuAn1\src\main\java\service\ICommonService.java
-D:\FPT- Polytechnic\PRO1041\DuAnQuanLyNhaHangHAK\DuAn1\src\main\java\util\GenDb.java
-D:\FPT- Polytechnic\PRO1041\DuAnQuanLyNhaHangHAK\DuAn1\src\main\java\entity\DanhMuc.java
-D:\FPT- Polytechnic\PRO1041\DuAnQuanLyNhaHangHAK\DuAn1\src\main\java\entity\HoaDonChiTiet.java
-=======
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\view\NhanVienJpanel.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\service\ICommonService.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\view\NewJPanel.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\view\ThucDonpanel.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\view\ThongKeJPanel.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\view\QuenMatKhau.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\util\HibernateUtil.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\view\DanhMucJdialog.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\entity\HoaDonChiTiet.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\entity\KhachHang.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\util\GenDb.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\view\BanJPanel.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\entity\DanhMuc.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\entity\ThucDon.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\view\TrangChu.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\entity\DonHangChiTiet.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\view\DangNhap.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\view\KhachHangPanel.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\entity\Ban.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\entity\DonHang.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\entity\KhuyenMai.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\entity\HoaDon.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\entity\NhanVien.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\view\KhuyenMaiJpanel.java
-C:\Users\hieu\Documents\GitHub\DuAnQuanLyNhaHangHAK1\DuAn1\src\main\java\repository\ICommonRepository.java
->>>>>>> hieuhihi
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\view\HoaDonJDialog.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\entity\DonHangChiTiet.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\view\DonHangJPanel.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\view\ThongKeJPanel.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\view\KhuVucJDialog.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\view\NhanVienJpanel.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\entity\KhuVuc.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\view\BanJPanel.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\view\ChiTietHoaDonJFrame.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\view\DanhMucJdialog.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\view\DangNhap.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\repository\ICommonRepository.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\view\TrangChu.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\service\ICommonService.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\view\HoaDonJpanel.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\entity\NhanVien.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\entity\HoaDonChiTiet.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\view\FrameQMK.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\entity\DanhMuc.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\entity\MonAn.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\util\GenDb.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\repository\BanRepository.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\entity\HoaDon.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\entity\Ban.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\view\KhuyenMaiJpanel.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\view\ThucDonpanel.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\entity\DonHang.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\entity\KhuyenMai.java
+C:\Users\antao\Downloads\netbean\QLNhaHang-main\src\main\java\util\HibernateUtil.java

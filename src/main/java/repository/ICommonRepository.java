@@ -11,14 +11,10 @@ import java.util.List;
  *
  * @author admin
  */
-public interface ICommonRepository <T>{
-
-    List<T> getAll();
-
-    boolean addOrUpdate(T t);
-
-    boolean delete(T t);
+public interface ICommonRepository <T,K>{
     
-    List<T> searchByKey(String key);
+    boolean addOrUpdate(T t);
+    
+    List<K> findByKey(String key);
     
 }

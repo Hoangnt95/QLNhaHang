@@ -33,8 +33,14 @@ public class DonHang implements Serializable{
     @Column(name = "NgayTao")
     private Date ngayTao;
     
+    @Column(name = "NgayDatBan")
+    private Date ngayDatBan;
+    
     @Column(name = "TrangThai")
     private int trangThai;
+    
+    @Column(name = "GhiChu")
+    private String ghiChu;
     
     @ManyToOne
     @JoinColumn(name = "IDBan")

@@ -6,9 +6,10 @@ import entity.DonHang;
 import entity.DonHangChiTiet;
 import entity.HoaDon;
 import entity.HoaDonChiTiet;
+import entity.KhuVuc;
 import entity.KhuyenMai;
+import entity.MonAn;
 import entity.NhanVien;
-import entity.ThucDon;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Properties;
@@ -38,20 +39,33 @@ public class GenDb {
         Session session = factory.openSession();
         // tạo giao dịch tương ứng 
         Transaction trans = session.beginTransaction();
-
+        
+        //Khu vực
+        KhuVuc kv1 = new KhuVuc();
+        kv1.setMaKV("KV01");
+        kv1.setTenKV("Khu Vuc A");
+        kv1.setTrangThai(0);
+        session.save(kv1);
+        
+        KhuVuc kv2 = new KhuVuc();
+        kv2.setMaKV("KV02");
+        kv2.setTenKV("Khu Vuc B");
+        kv2.setTrangThai(0);
+        session.save(kv2);
+        
         //Bàn
         Ban ban1 = new Ban();
         ban1.setMaBan("BA01");
-        ban1.setTenBan("Ban So 1");
-        ban1.setTrangThai(0);
-        ban1.setViTri(0);
+        ban1.setTrangThai(1);
+        ban1.setSoLuongChoNgoi(6);
+        ban1.setIdKhuVuc(kv2);
         session.save(ban1);
 
         Ban ban2 = new Ban();
         ban2.setMaBan("BA02");
-        ban2.setTenBan("Ban So 2");
         ban2.setTrangThai(1);
-        ban2.setViTri(1);
+        ban2.setSoLuongChoNgoi(4);
+        ban2.setIdKhuVuc(kv1);
         session.save(ban2);
 
         // Danh mục 
@@ -127,23 +141,23 @@ public class GenDb {
         session.save(donHang2);
 
         // Thực đơn
-        ThucDon thucDon1 = new ThucDon();
-        thucDon1.setMaMon("Mon01");
-        thucDon1.setDanhMuc(danhMuc2);
-        thucDon1.setDonViTinh("Dia");
-        thucDon1.setHinh("abc");
-        thucDon1.setDonGia(BigDecimal.valueOf(200000));
-        thucDon1.setTenMon("Thit cho 36 mon");
-        session.save(thucDon1);
+        MonAn monAn1 = new MonAn();
+        monAn1.setMaMon("Mon01");
+        monAn1.setDanhMuc(danhMuc2);
+        monAn1.setDonViTinh("Dia");
+        monAn1.setHinhAnh("abc");
+        monAn1.setDonGia(BigDecimal.valueOf(200000));
+        monAn1.setTenMon("Thit cho 36 mon");
+        session.save(monAn1);
 
-        ThucDon thucDon2 = new ThucDon();
-        thucDon2.setMaMon("Mon02");
-        thucDon2.setDanhMuc(danhMuc1);
-        thucDon2.setDonViTinh("Goi");
-        thucDon2.setHinh("abc");
-        thucDon2.setDonGia(BigDecimal.valueOf(500000));
-        thucDon2.setTenMon("Thit Dui 36 mon");
-        session.save(thucDon2);
+        MonAn monAn2 = new MonAn();
+        monAn2.setMaMon("Mon02");
+        monAn2.setDanhMuc(danhMuc1);
+        monAn2.setDonViTinh("Goi");
+        monAn2.setHinhAnh("abc");
+        monAn2.setDonGia(BigDecimal.valueOf(500000));
+        monAn2.setTenMon("Thit Dui 36 mon");
+        session.save(monAn2);
 
         // Hóa đơn
         HoaDon hoaDon1 = new HoaDon();
@@ -163,14 +177,14 @@ public class GenDb {
         // Đơn hàng CT
         DonHangChiTiet dhct1 = new DonHangChiTiet();
         dhct1.setIdDonHang(donHang2);
-        dhct1.setIdThucDon(thucDon2);
+        dhct1.setIdMonAn(monAn2);
         dhct1.setSoLuong(5);
         dhct1.setDonGia(BigDecimal.valueOf(500000));
         session.save(dhct1);
 
         DonHangChiTiet dhct2 = new DonHangChiTiet();
         dhct2.setIdDonHang(donHang1);
-        dhct2.setIdThucDon(thucDon1);
+        dhct2.setIdMonAn(monAn1);
         dhct2.setSoLuong(2);
         dhct2.setDonGia(BigDecimal.valueOf(200000));
         session.save(dhct2);

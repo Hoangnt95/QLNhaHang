@@ -37,4 +37,16 @@ public class KhuyenMai implements Serializable{
     @Column(name = "NgayKetThuc")
     private Date ngayKetThuc;
     
+    @Column(name = "TrangThai")
+    private int trangThai;
+
+    public KhuyenMai(String maGiamGia, int phanTram, Date ngayBatDau, Date ngayKetThuc, int trangThai) {
+        this.maGiamGia = maGiamGia;
+        this.phanTram = phanTram;
+        this.ngayBatDau = ngayBatDau;
+        this.ngayKetThuc = ngayKetThuc;
+        this.trangThai = trangThai;
+    }
+    
+    
 }

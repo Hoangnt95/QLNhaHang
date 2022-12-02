@@ -58,5 +58,20 @@ public class NhanVien implements Serializable{
     
     @Column(name = "TrangThai")
     private int trangThai;
+
+    public NhanVien(String maNV, String hoTenNV, int gioiTinh, String diaChi, String thanhPho, String sdt, String email, Date ngaySinh, String matKhau, boolean vaiTro, int trangThai) {
+        this.maNV = maNV;
+        this.hoTenNV = hoTenNV;
+        this.gioiTinh = gioiTinh;
+        this.diaChi = diaChi;
+        this.thanhPho = thanhPho;
+        this.sdt = sdt;
+        this.email = email;
+        this.ngaySinh = ngaySinh;
+        this.matKhau = matKhau;
+        this.vaiTro = vaiTro;
+        this.trangThai = trangThai;
+    }
+    
     
 }
