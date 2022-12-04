@@ -37,4 +37,7 @@ public class KhuyenMai implements Serializable{
     @Column(name = "NgayKetThuc")
     private Date ngayKetThuc;
     
+    @Column(name = "TrangThai")
+    private int trangThai;
+    
 }

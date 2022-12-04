@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,23 +19,29 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Ban implements Serializable{
-    
+public class Ban implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int id;
-    
+
     @Column(name = "MaBan")
     private String maBan;
-    
-    @Column(name = "TenBan")
-    private String tenBan;
-    
+
+    @Column(name = "SoLuongChoNgoi")
+    private int soLuongChoNgoi;
+
     @Column(name = "TrangThai")
     private int trangThai;
-    
-    @Column(name = "ViTri")
-    private int viTri;
-    
+
+    @ManyToOne
+    @JoinColumn(name = "IdKhuVuc")
+    private KhuVuc idKhuVuc;
+
+    public Ban(String maBan, int trangThai) {
+        this.maBan = maBan;
+        this.trangThai = trangThai;
+    }
+
 }

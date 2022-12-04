@@ -38,7 +38,7 @@ public class DonHangChiTiet implements Serializable{
     private DonHang idDonHang;
     
     @ManyToOne
-    @JoinColumn(name = "IDTD")
-    private ThucDon idThucDon;
+    @JoinColumn(name = "IDMonAn")
+    private MonAn idMonAn;
     
 }

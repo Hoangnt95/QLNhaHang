@@ -5,20 +5,16 @@
 package repository;
 
 import java.util.List;
-
-
 /**
  *
  * @author admin
  */
-public interface ICommonRepository <T>{
-
-    List<T> getAll();
+public interface ICommonRepository<T, K>{
 
     boolean addOrUpdate(T t);
+    
+    T findById(int id);
 
-    boolean delete(T t);
-    
-    List<T> searchByKey(String key);
-    
+    List<K> findByKey(String key);
+
 }
