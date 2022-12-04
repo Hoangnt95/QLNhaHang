@@ -14,7 +14,10 @@ view\HoaDonJpanel.class
 view\DanhMucJdialog$2.class
 view\KhuyenMaiJpanel$1.class
 view\ChiTietHoaDonJFrame.class
+view\ThucDonpanel$4.class
 service\impl\ThucDonService.class
+view\NewJFrame$1.class
+view\ThucDonpanel$5.class
 entity\MonAn.class
 repository\impl\DanhMucRepository.class
 util\XImage.class
@@ -32,6 +35,7 @@ Custom\DanhMucCustom.class
 view\DanhMucJdialog$6.class
 view\DanhMucJdialog.class
 view\DanhMucJdialog$1.class
+view\ThucDonpanel$6.class
 view\DangNhap$1.class
 entity\DanhMuc.class
 entity\DonHang.class
@@ -43,8 +47,8 @@ util\Validate.class
 view\KhuVucJDialog.class
 view\DanhMucJdialog$5.class
 view\KhuVucJDialog$1$1.class
+view\NewJFrame.class
 view\TrangChu$7.class
-.netbeans_automatic_build
 view\BanJPanel.class
 view\BanJPanel$1.class
 view\TrangChu$4.class
@@ -57,6 +61,7 @@ view\TrangChu$1.class
 view\TrangChu$8.class
 view\ChiTietHoaDonJFrame$1.class
 view\KhuyenMaiJpanel.class
+view\ThucDonpanel$3.class
 view\HoaDonJDialog$1$1.class
 entity\HoaDonChiTiet.class
 Custom\ThucDonCustom.class

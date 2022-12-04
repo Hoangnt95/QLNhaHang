@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.Button;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Column;
@@ -41,4 +42,5 @@ public class HoaDonChiTiet implements Serializable{
     @JoinColumn(name = "IDHD")
     private HoaDon idHoaDon;
     
+    private Button button;
 }

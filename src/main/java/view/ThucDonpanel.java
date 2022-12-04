@@ -2,6 +2,7 @@ package view;
 
 import Custom.DanhMucCustom;
 import Custom.ThucDonCustom;
+import entity.DanhMuc;
 import entity.MonAn;
 import java.io.File;
 import java.math.BigDecimal;
@@ -28,9 +29,6 @@ public class ThucDonpanel extends javax.swing.JPanel {
         donService = new ThucDonService();
         cbxdanhmuc();
         cbxTrangThai();
-        lblid.setEnabled(false);
-        
-        lblid.setText("0");
         Loadtable(monanservice.getLists());
     }
     
@@ -49,7 +47,7 @@ public class ThucDonpanel extends javax.swing.JPanel {
         cbxtrangthai.setModel(cbx);
     }
     ThucDonCustom getdata(){
-        return new ThucDonCustom(Integer.parseInt(lblid.getText()),
+        return new ThucDonCustom( Integer.parseInt(lbl1.getText()),
                 txtmamon.getText(), txttenmon.getText(), 
                 txtdonvitinh.getText()
                 , lbl_hinhanh.getText(), 
@@ -57,7 +55,34 @@ public class ThucDonpanel extends javax.swing.JPanel {
                 txtghichu.getText(),  
                 cbxtrangthai.getSelectedItem().equals("Đang Bán")?1:0, 
                 danhmucservice.getLists().get(cbxdanhmuc.getSelectedIndex()));
-        
+//        ThucDonCustom monAn = null;
+//
+//        String maMon = txtmamon.getText().trim();
+//        monAn.setMaMon(maMon);
+//
+//        String tenMon = txttenmon.getText().trim();
+//        monAn.setTenMon(tenMon);
+//
+//        String donViTinh = txtdonvitinh.getText().trim();
+//        monAn.setDonViTinh(donViTinh);
+//
+//        String hinhAnh = lbl_hinhanh.getText().trim();
+//        monAn.setHinhAnh(hinhAnh);
+//
+//        BigDecimal donGia = new BigDecimal(txtdongia.getText().trim());
+//        monAn.setDonGia(donGia);
+//
+//        String ghiChu = txtghichu.getText().trim();
+//        monAn.setGhiChu(ghiChu);
+//
+//        int trangThai = cbxtrangthai.getSelectedIndex();
+//        monAn.setTrangThai(trangThai);
+//
+//        int idDanhMuc = cbxdanhmuc.getSelectedIndex();
+//        monAn.setDanhMuc();
+//
+//        return monAn;
+
                 
     }
     
@@ -106,8 +131,8 @@ public class ThucDonpanel extends javax.swing.JPanel {
         txtdongia = new javax.swing.JTextField();
         btnchonanh = new javax.swing.JButton();
         lbl_hinhanh = new javax.swing.JLabel();
-        lblid = new javax.swing.JTextField();
         btnsua1 = new javax.swing.JButton();
+        lbl1 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -179,14 +204,12 @@ public class ThucDonpanel extends javax.swing.JPanel {
             }
         });
 
+        lbl1.setText("0");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,13 +250,17 @@ public class ThucDonpanel extends javax.swing.JPanel {
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(lbl_hinhanh, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btnchonanh, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addContainerGap(18, Short.MAX_VALUE))))))
+                                .addContainerGap(20, Short.MAX_VALUE))))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbl1)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(lblid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addComponent(lbl1)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtmamon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -317,7 +344,7 @@ public class ThucDonpanel extends javax.swing.JPanel {
                         .addComponent(jLabel9)
                         .addGap(40, 40, 40)
                         .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 898, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -393,7 +420,7 @@ public class ThucDonpanel extends javax.swing.JPanel {
 
     private void btnsuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsuaActionPerformed
       ThucDonCustom thucdoncs = getdata();
-      thucdoncs.setId(Integer.parseInt(lblid.getText()));
+      thucdoncs.setId(Integer.parseInt(lbl1.getText()));
       JOptionPane.showMessageDialog(this, monanservice.addOrUpdate(thucdoncs));
       Loadtable(monanservice.getLists());
     }//GEN-LAST:event_btnsuaActionPerformed
@@ -406,14 +433,14 @@ public class ThucDonpanel extends javax.swing.JPanel {
         txtdonvitinh.setText(tblthucdon.getValueAt(row, 3).toString());
         txtghichu.setText(tblthucdon.getValueAt(row, 6).toString());
         lbl_hinhanh.setText(tblthucdon.getValueAt(row, 8).toString());
-        lblid.setText(tblthucdon.getValueAt(row, 0).toString());
+        lbl1.setText(tblthucdon.getValueAt(row, 0).toString());
         cbxdanhmuc.setSelectedItem(tblthucdon.getValueAt(row, 7).toString());
         cbxtrangthai.setSelectedItem(tblthucdon.getValueAt(row, 5).toString());
         
     }//GEN-LAST:event_tblthucdonMouseClicked
 
     private void btnsua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsua1ActionPerformed
-        lblid.setText("0");
+        lbl1.setText("0");
         
     }//GEN-LAST:event_btnsua1ActionPerformed
 
@@ -440,8 +467,8 @@ public class ThucDonpanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField6;
+    private javax.swing.JLabel lbl1;
     private javax.swing.JLabel lbl_hinhanh;
-    private javax.swing.JTextField lblid;
     private javax.swing.JTable tblthucdon;
     private javax.swing.JTextField txtdongia;
     private javax.swing.JTextField txtdonvitinh;

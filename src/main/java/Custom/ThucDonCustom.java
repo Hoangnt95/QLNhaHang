@@ -44,7 +44,7 @@ public class ThucDonCustom {
     
     private DanhMucCustom danhMuc;
 
-    public ThucDonCustom(String text, String text0, String text1, String text2, BigDecimal valueOf, String text3, int i, DanhMucCustom get) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
+
+    
 }
