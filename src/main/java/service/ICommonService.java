@@ -12,8 +12,14 @@ import java.util.List;
  */
 public interface ICommonService<T> {
 
+    List<T> getLists();
+
+    List<T> search(String key);
+
     String addOrUpdate(T t);
-
-    List<T> findByKey(String key);
-
+    
+    String delete(T t);
+    
+    T getOne(String ma);
+    
 }

@@ -17,4 +17,6 @@ public interface ICommonRepository <T,K>{
     
     List<K> findByKey(String key);
     
+    T getOne(String ma);
+    
 }

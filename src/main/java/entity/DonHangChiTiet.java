@@ -38,7 +38,21 @@ public class DonHangChiTiet implements Serializable{
     private DonHang idDonHang;
     
     @ManyToOne
+<<<<<<< HEAD
+    @JoinColumn(name = "IDTD")
+    private ThucDon idThucDon;
+
+    public DonHangChiTiet(int id, int soLuong, BigDecimal donGia, DonHang idDonHang) {
+        this.id = id;
+        this.soLuong = soLuong;
+        this.donGia = donGia;
+        this.idDonHang = idDonHang;
+    }
+    
+    
+=======
     @JoinColumn(name = "IDMonAn")
     private MonAn idMonAn;
+>>>>>>> main
     
 }
