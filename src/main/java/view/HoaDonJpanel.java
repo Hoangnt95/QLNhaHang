@@ -69,6 +69,7 @@ public class HoaDonJpanel extends javax.swing.JPanel {
         jButton6 = new javax.swing.JButton();
         jDateChooser3 = new com.toedter.calendar.JDateChooser();
         jButton7 = new javax.swing.JButton();
+        btnExcel = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 255));
 
@@ -110,16 +111,24 @@ public class HoaDonJpanel extends javax.swing.JPanel {
             tblHoaDon.getColumnModel().getColumn(8).setHeaderValue("Xem chi tiết");
         }
 
-        jButton3.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\QLNhaHang\\image\\iconApp\\previous.png")); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\Khanh\\QLNhaHang\\image\\iconApp\\previous.png")); // NOI18N
 
-        jButton4.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\QLNhaHang\\image\\iconApp\\rewind-button.png")); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\Khanh\\QLNhaHang\\image\\iconApp\\rewind-button.png")); // NOI18N
 
-        jButton5.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\QLNhaHang\\image\\iconApp\\forward-button.png")); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\Khanh\\QLNhaHang\\image\\iconApp\\forward-button.png")); // NOI18N
 
-        jButton6.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\QLNhaHang\\image\\iconApp\\next.png")); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\Khanh\\QLNhaHang\\image\\iconApp\\next.png")); // NOI18N
 
         jButton7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton7.setText("Tìm kiếm");
+
+        btnExcel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnExcel.setText("Xuat Excel");
+        btnExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -136,7 +145,9 @@ public class HoaDonJpanel extends javax.swing.JPanel {
                 .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
                 .addComponent(jButton7)
-                .addGap(188, 188, 188))
+                .addGap(91, 91, 91)
+                .addComponent(btnExcel)
+                .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(250, 250, 250)
                 .addComponent(jButton3)
@@ -163,7 +174,9 @@ public class HoaDonJpanel extends javax.swing.JPanel {
                             .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)))
                     .addComponent(jLabel2)
-                    .addComponent(jButton7))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton7)
+                        .addComponent(btnExcel)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -220,8 +233,15 @@ public class HoaDonJpanel extends javax.swing.JPanel {
         UserHelper.ma = ma;
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
+    private void btnExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcelActionPerformed
+        // TODO add your handling code here:
+        String result = service.ExportExcel(lists);
+        JOptionPane.showMessageDialog(this, result);
+    }//GEN-LAST:event_btnExcelActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExcel;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;

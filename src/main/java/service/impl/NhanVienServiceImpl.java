@@ -78,4 +78,12 @@ public class NhanVienServiceImpl implements ICommonService<NhanVienCustom> {
         return nhanVien;
     }
 
+    public NhanVienCustom getNhanVienByEmail(String user, String email) {
+        NhanVienCustom nhanVien = this.repo.getNhanVienByEmail(user, email);
+        if (nhanVien == null) {
+            nhanVien = null;
+        }
+        return nhanVien;
+    }
+
 }

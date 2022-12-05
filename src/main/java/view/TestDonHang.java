@@ -75,7 +75,7 @@ public class TestDonHang extends javax.swing.JPanel {
                 btn[i].setForeground(new java.awt.Color(51, 51, 51));
                 if (arrBan.get(i).getTrangThai() == 1) {
                     btn[i].setBackground(Color.decode("#66ff66"));
-                    btn[i].setIcon(new javax.swing.ImageIcon("C:\\DuAn1\\QLNhaHang\\image\\iconApp\\ico-Table.png"));
+                    btn[i].setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\Khanh\\QLNhaHang\\image\\iconApp"));
                 }
                 if (arrBan.get(i).getTrangThai() == 0) {
                     btn[i].setBackground(Color.decode("#8080ff"));

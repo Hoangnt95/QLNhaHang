@@ -68,6 +68,21 @@ public class NhanVienRepositoryImpl implements ICommonRepository<NhanVien, NhanV
         }
         return nhanVien;
     }
+    
+    public NhanVienCustom getNhanVienByEmail(String user, String email) {
+        NhanVienCustom nhanVien = null;
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+            String hql = "Select new custom.NhanVienCustom(a.id, a.maNV, "
+                    + "a.matKhau, a.email, a.gioiTinh, a.hoTenNV, a.ngaySinh, "
+                    + "a.sdt, a.diaChi, a.thanhPho, a.trangThai, a.vaiTro) FROM NhanVien a"
+                    + " WHERE a.maNV = :ma AND a.email = :email";
+            TypedQuery<NhanVienCustom> query = session.createQuery(hql, NhanVienCustom.class);
+            query.setParameter("ma", user);
+            query.setParameter("email", email);
+            nhanVien = query.getSingleResult();
+        }
+        return nhanVien;
+    }
 
     @Override
     public NhanVien findById(int id) {

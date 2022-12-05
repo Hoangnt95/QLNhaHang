@@ -54,6 +54,7 @@ repository\impl\NhanVienRepositoryImpl.class
 repository\impl\MonAnRepositoryImpl.class
 util\UserHelper.class
 repository\impl\DonHangChiTietRepositoryImpl.class
+view\HoaDonJpanel$2.class
 view\NhanVienJpanel$3.class
 entity\KhuyenMai.class
 view\DangNhap$2.class
