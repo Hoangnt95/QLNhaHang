@@ -5,7 +5,10 @@
  */
 package view;
 
-
+import custom.BanCustom;
+import custom.DHCTBanHangCustom;
+import custom.DonHangCustom;
+import custom.HoaDonCustom;
 import entity.Ban;
 import entity.DonHang;
 import entity.DonHangChiTiet;
@@ -40,18 +43,23 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
+import service.impl.BanServiceImpl;
+import service.impl.DonHangChiTietServiceImpl;
+import service.impl.DonHangServiceImpl;
+import service.impl.HoaDonServiceImpl;
+import service.impl.KhuyenMaiServiceImpl;
+import service.impl.MonAnServiceImpl;
 
 public final class JpGoiMon extends javax.swing.JPanel {
 
-    private DonHangService dhdao = new DonHangService();
-    private DonHangCTService dhctdao = new DonHangCTService();
-    private BanService bandao = new BanService();
-    private ThucDonService thucdondao = new ThucDonService();
-    private KhuyenMaiService kmdao = new KhuyenMaiService();
-    private HoaDonService hddao = new HoaDonService();
+    private DonHangServiceImpl dhdao = new DonHangServiceImpl();
+    private DonHangChiTietServiceImpl dhctdao = new DonHangChiTietServiceImpl();
+    private BanServiceImpl bandao = new BanServiceImpl();
+    private MonAnServiceImpl thucdondao = new MonAnServiceImpl();
+    private KhuyenMaiServiceImpl kmdao = new KhuyenMaiServiceImpl();
+    private HoaDonServiceImpl hddao = new HoaDonServiceImpl();
     String TenBan, MaBan, MaDH;
-
+    KhuyenMai km;
     int tt, idDH;
     BigDecimal tienmon;
     BigDecimal giatien;
@@ -60,8 +68,8 @@ public final class JpGoiMon extends javax.swing.JPanel {
     Date date;
     DonHang arrhd;
     NumberFormat chuyentien = new DecimalFormat("#,###,###");
-    List<DonHangCTViewModel> order;
-    List<Ban> arrBan;
+    List<DHCTBanHangCustom> order;
+    List<BanCustom> arrBan;
     List<DonHang> listDH;
     List<KhuyenMai> listKM;
     public static JpGoiMon gm;
@@ -77,27 +85,23 @@ public final class JpGoiMon extends javax.swing.JPanel {
     public JpGoiMon(int trangthai, String maban) {
         initComponents();
         gm = this;
-        MaBan = maban;
-
+        MaBan = maban;   
         jpDsMon.setVisible(false);
         jpThongTinThanhToan.setVisible(false);
         jScrollPane1.setVisible(false);
         loadToCBB();
+         
         lblTenBan.setText(maban);
-
-        lbltrangthai.setText(trangthai == 1?"Đang phục vụ" :"Trống");
-
+        lbltrangthai.setText(trangthai == 1 ? "Đang phục vụ" : "Trống");
         if (lbltrangthai.getText().equals("Trống")) {
             btndatban.setText("Đặt chỗ");
             return;
-
         }
         if (lbltrangthai.getText().equals("2")) {
             btndatban.setText("Hủy đặt");
             return;
         }
         if (lbltrangthai.getText().equals("Đang phục vụ")) {
-
             arrhd = dhdao.getDHbyMa(maban);
             btndatban.setVisible(false);
             btnthugon.setVisible(false);
@@ -134,7 +138,7 @@ public final class JpGoiMon extends javax.swing.JPanel {
         btndatban = new javax.swing.JButton();
         btngoi = new javax.swing.JButton();
         btnGopBan = new javax.swing.JButton();
-        btngoi1 = new javax.swing.JButton();
+        btntachban = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jpThongTinThanhToan = new javax.swing.JPanel();
         lbltongtien = new javax.swing.JLabel();
@@ -214,17 +218,17 @@ public final class JpGoiMon extends javax.swing.JPanel {
         });
         jPanel1.add(btnGopBan);
 
-        btngoi1.setFont(new java.awt.Font("Tahoma", 1, 9)); // NOI18N
-        btngoi1.setForeground(new java.awt.Color(102, 51, 0));
-        btngoi1.setText("Tách Bàn");
-        btngoi1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btngoi1.setPreferredSize(new java.awt.Dimension(100, 40));
-        btngoi1.addActionListener(new java.awt.event.ActionListener() {
+        btntachban.setFont(new java.awt.Font("Tahoma", 1, 9)); // NOI18N
+        btntachban.setForeground(new java.awt.Color(102, 51, 0));
+        btntachban.setText("Tách Bàn");
+        btntachban.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btntachban.setPreferredSize(new java.awt.Dimension(100, 40));
+        btntachban.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btngoi1ActionPerformed(evt);
+                btntachbanActionPerformed(evt);
             }
         });
-        jPanel1.add(btngoi1);
+        jPanel1.add(btntachban);
 
         jSeparator1.setBackground(Color.decode("#e6e6e6"));
         jSeparator1.setForeground(new java.awt.Color(21, 75, 158));
@@ -435,7 +439,7 @@ public final class JpGoiMon extends javax.swing.JPanel {
                 .addComponent(jpThongTinBan, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jpthucdon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -456,7 +460,7 @@ public final class JpGoiMon extends javax.swing.JPanel {
         BigDecimal phantram = new BigDecimal(giam);
         tienGiam = tienmon.multiply(phantram);
         tongtien = tienmon.subtract(tienGiam);
-        lbltongtien.setText(chuyentien.format(tongtien));
+       lbltongtien.setText(chuyentien.format(tongtien));
     }
 
     public void fillThongTin() {
@@ -464,24 +468,22 @@ public final class JpGoiMon extends javax.swing.JPanel {
         idDH = arrhd.getId();
         MaDH = arrhd.getMaDH();
         btngoi.setVisible(true);
-        lbltienmon.setText(String.valueOf(chuyentien.format(tienmon)) + " VNĐ");
-         int so =  (int) cbbKhuyenMai.getSelectedItem();
-         
-         double giam = so*0.01;
-         BigDecimal phantram = new BigDecimal(giam);
-         tienGiam = tienmon.multiply(phantram);
-         tongtien = tienmon.subtract(tienGiam);
-         lbltongtien.setText(chuyentien.format(tongtien)); 
+         lbltienmon.setText(String.valueOf(chuyentien.format(tienmon)) + " VNĐ");
+        int so = (int) cbbKhuyenMai.getSelectedItem();
+        double giam = so * 0.01;
+        BigDecimal phantram = new BigDecimal(giam);
+        tienGiam = tienmon.multiply(phantram);
+        tongtien = tienmon.subtract(tienGiam);
+        lbltongtien.setText(chuyentien.format(tongtien));
         cbbKhuyenMai.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                //tinhtien(); 
-                int so =  (int) cbbKhuyenMai.getSelectedItem();
-                KhuyenMai km = kmdao.getIDbyPhanTram(so);
-           DonHang dh = new DonHang();
-           dh.setMaDH(MaDH);
-           dh.setIdKhuyenMai(km);
-           String updatehd = dhdao.updateDonHangGiamGia(dh);
+                int so = (int) cbbKhuyenMai.getSelectedItem();
+                km = kmdao.getIDbyPhanTram(so);
+                DonHang dh = new DonHang();
+                dh.setMaDH(MaDH);
+                dh.setIdKhuyenMai(km);
+                String updatehd = dhdao.updateDonHangGiamGia(dh);
                 double giam = so * 0.01;
                 BigDecimal phantram = new BigDecimal(giam);
                 tienGiam = tienmon.multiply(phantram);
@@ -527,17 +529,17 @@ public final class JpGoiMon extends javax.swing.JPanel {
                 Icon ic = new ImageIcon("C:\\DuAn\\DuAn1\\src\\main\\java\\Images\\unistall.png");
                 JLabel lbl = new JLabel("", ic, JLabel.CENTER);
                 lbl.setForeground(Color.decode("#b3ff99"));
-                lbl.setName(String.valueOf(order.get(i).getIdTD()));
+                lbl.setName(String.valueOf(order.get(i).getMaMon()));
                 pn[i].add(lbl).addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         int qs;
 
-                        List<MonAn> td = thucdondao.GetThucDonByID(Integer.parseInt(e.getComponent().getName()));
-                        qs = JOptionPane.showConfirmDialog(null, "Hủy món: " + td.get(0).getTenMon() + " ?", "Hủy món", JOptionPane.YES_NO_OPTION);
+                        MonAn td = thucdondao.getIdByMa(e.getComponent().getName());
+                        qs = JOptionPane.showConfirmDialog(null, "Hủy món: " + td.getTenMon() + " ?", "Hủy món", JOptionPane.YES_NO_OPTION);
                         if (qs == JOptionPane.YES_OPTION) {
 
-                            String xoa = dhctdao.xoamon(idDH, Integer.parseInt(e.getComponent().getName()));
+                            String xoa = dhctdao.xoamon(idDH,td.getId());
                             fillDsMon(idDH);
                         }
                     }
@@ -545,7 +547,8 @@ public final class JpGoiMon extends javax.swing.JPanel {
                 pn[i].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mousePressed(MouseEvent e) {
-//                        DLSoLuong sl = new DLSoLuong(TrangChu.main, true, e.getComponent().getName(), TenBan, MaBan);
+                       
+                        DLCapNhatSL sl = new DLCapNhatSL(TrangChu.main, true, e.getComponent().getName(), TenBan, MaBan);
                         sl.setVisible(true);
                     }
                 });
@@ -559,8 +562,7 @@ public final class JpGoiMon extends javax.swing.JPanel {
     }
 
     private void loadToCBB() {
-        listKM = kmdao.getLists();
-
+        listKM = kmdao.getAll();
         for (KhuyenMai km : listKM) {
             cbbKhuyenMai.addItem(km.getPhanTram());
         }
@@ -568,27 +570,27 @@ public final class JpGoiMon extends javax.swing.JPanel {
 
     private void HuyHD() {
 
-        JButton btnhuy = new JButton("Hủy bàn");
-        btnhuy.setPreferredSize(new Dimension(100, 40));
-        btnhuy.setBounds(100, 50, 100, 40);
-        jpDsMon.setLayout(null);
-        btngoi.setVisible(false);
-        jpThongTinThanhToan.setVisible(false);
-        btnhuy.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                Ban b = new Ban();
-                b.setTrangThai(0);
-                b.setMaBan(MaBan);
-                bandao.UpdateTrangThaiban(b);
-                TestDonHang.dh.FillBan(arrBan);
-                JpGoiMon.gm.removeAll();
-                DonHang dh = new DonHang();
-                dhdao.delete(dh);
-            }
-        });
-        jpDsMon.add(btnhuy);
-        jpDsMon.updateUI();
+//        JButton btnhuy = new JButton("Hủy bàn");
+//        btnhuy.setPreferredSize(new Dimension(100, 40));
+//        btnhuy.setBounds(100, 50, 100, 40);
+//        jpDsMon.setLayout(null);
+//        btngoi.setVisible(false);
+//        jpThongTinThanhToan.setVisible(false);
+//        btnhuy.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mousePressed(MouseEvent e) {
+//                Ban b = new Ban();
+//                b.setTrangThai(0);
+//                b.setMaBan(MaBan);
+//                bandao.UpdateTrangThaiban(b);
+//                TestDonHang.dh.FillBan(arrBan);
+//                JpGoiMon.gm.removeAll();
+//                DonHang dh = new DonHang();
+//                dhdao.delete(dh);
+//            }
+//        });
+//        jpDsMon.add(btnhuy);
+//        jpDsMon.updateUI();
     }
     private void btngoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngoiActionPerformed
         if (btngoi.getText().equals("Hủy bàn")) {
@@ -617,9 +619,9 @@ public final class JpGoiMon extends javax.swing.JPanel {
             } catch (ParseException ex) {
                 Logger.getLogger(JpGoiMon.class.getName()).log(Level.SEVERE, null, ex);
             }
-            HoaDon hd = new HoaDon();
+            HoaDonCustom hd = new HoaDonCustom();
             hd.setTrangThai(0);
-            hd.setIdDonHang(arrhd);
+            hd.setIdDonHang(arrhd.getId());
             hd.setNgayTao(date);
             HoaDonJDialog hoadon = new HoaDonJDialog(TrangChu.main, true, idDH, tongtien, date, MaBan, MaDH, TenBan);
             hoadon.setVisible(true);
@@ -646,7 +648,7 @@ public final class JpGoiMon extends javax.swing.JPanel {
             dh.setTrangThai(0);
             dh.setNgayTao(date);
             dh.setIdBan(b);
-            String insertHd = dhdao.addOrUpdate(dh);
+            String insertHd = dhdao.insert(dh);
 
             jpThucDon thucdon;
             thucdon = new jpThucDon();
@@ -657,39 +659,38 @@ public final class JpGoiMon extends javax.swing.JPanel {
             jpthucdon.add(thucdon);
             jpthucdon.revalidate();
         }
-        // TODO add your handling code here:
     }//GEN-LAST:event_btngoiActionPerformed
 
     private void btndatbanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndatbanActionPerformed
-        if (lbltrangthai.getText().equals("2")) {
-            lbltrangthai.setText("Trống");
-            btndatban.setText("Đặt chỗ");
-            Ban b = new Ban(MaBan, 0);
-            String Update = bandao.UpdateBan(b);
-            jpBanHang.bh.FillBan(bandao.getLists());
-            jpBanHang.bh.updateUI();
-        } else {
-            lbltrangthai.setText("Đã đặt trước");
-            btndatban.setText("Hủy đặt");
-            String TrangThai = "Đã đặt trước";
-            Ban b = new Ban(MaBan, 2);
-            String Update = bandao.UpdateBan(b);
-           TestDonHang.dh.updateUI();
-           TestDonHang.dh.FillBan(arrBan);
-        }
-        if (btndatban.getText().equals("Huỷ đặt")) {
-            lbltrangthai.setText("Trống");
-            btndatban.setText("Đặt chỗ");
-            Ban b = new Ban(MaBan, 0);
-            String Update = bandao.UpdateBan(b);
-           TestDonHang.dh.updateUI();
-           TestDonHang.dh.FillBan(arrBan);
-        }
+//        if (lbltrangthai.getText().equals("2")) {
+//            lbltrangthai.setText("Trống");
+//            btndatban.setText("Đặt chỗ");
+//            Ban b = new Ban(MaBan, 0);
+//            String Update = bandao.UpdateBan(b);
+//            jpBanHang.bh.FillBan(bandao.getLists());
+//            jpBanHang.bh.updateUI();
+//        } else {
+//            lbltrangthai.setText("Đã đặt trước");
+//            btndatban.setText("Hủy đặt");
+//            String TrangThai = "Đã đặt trước";
+//            Ban b = new Ban(MaBan, 2);
+//            String Update = bandao.UpdateBan(b);
+//           TestDonHang.dh.updateUI();
+//           TestDonHang.dh.FillBan(arrBan);
+//        }
+//        if (btndatban.getText().equals("Huỷ đặt")) {
+//            lbltrangthai.setText("Trống");
+//            btndatban.setText("Đặt chỗ");
+//            Ban b = new Ban(MaBan, 0);
+//            String Update = bandao.UpdateBan(b);
+//           TestDonHang.dh.updateUI();
+//           TestDonHang.dh.FillBan(arrBan);
+//        }
     }//GEN-LAST:event_btndatbanActionPerformed
 
     private void jpThongTinThanhToanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpThongTinThanhToanMousePressed
 
-        arrhd = dhdao.getDHbyMa(MaBan);
+//        arrhd = dhdao.getDHbyMa(MaBan);
     }//GEN-LAST:event_jpThongTinThanhToanMousePressed
 
     private void btnthugonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthugonActionPerformed
@@ -698,17 +699,23 @@ public final class JpGoiMon extends javax.swing.JPanel {
 
     private void btnGopBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGopBanActionPerformed
         // TODO add your handling code here:
-        GopBan gp = new GopBan(TrangChu.main, true);
+         arrhd = dhdao.getDHbyMa(MaBan);
+        idDH = arrhd.getId();
+        GopBan gp = new GopBan(TrangChu.main, true,MaBan,km,idDH);
         gp.setVisible(true);
+         TestDonHang.dh.fillLb();
     }//GEN-LAST:event_btnGopBanActionPerformed
 
-    private void btngoi1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngoi1ActionPerformed
+    private void btntachbanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntachbanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btngoi1ActionPerformed
+        Chuyenban hoadon = new Chuyenban(TrangChu.main, true, MaBan,MaDH);
+        hoadon.setVisible(true);
+         TestDonHang.dh.fillLb();
+    }//GEN-LAST:event_btntachbanActionPerformed
 
     private void cbbKhuyenMaiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbKhuyenMaiItemStateChanged
         // TODO add your handling code here:
-        // tinhtien();
+//         tinhtien();
     }//GEN-LAST:event_cbbKhuyenMaiItemStateChanged
 
 
@@ -716,7 +723,7 @@ public final class JpGoiMon extends javax.swing.JPanel {
     private javax.swing.JButton btnGopBan;
     private javax.swing.JButton btndatban;
     private javax.swing.JButton btngoi;
-    private javax.swing.JButton btngoi1;
+    private javax.swing.JButton btntachban;
     private javax.swing.JButton btnthugon;
     private javax.swing.JComboBox<Integer> cbbKhuyenMai;
     private javax.swing.JLabel jLabel1;

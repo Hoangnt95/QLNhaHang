@@ -28,7 +28,7 @@ public class NhanVienJpanel extends javax.swing.JPanel {
         NhanVienCustom nhanVien = new NhanVienCustom();
         String ma = txtMaNV.getText().trim();
         nhanVien.setMaNV(ma);
-        
+        JOptionPane.showMessageDialog(this, nhanVien.getMaNV());
         String ten = txtTenNV.getText().trim();
         nhanVien.setHoTenNV(ten);
         
@@ -66,11 +66,6 @@ public class NhanVienJpanel extends javax.swing.JPanel {
         int trangThai = cbbTrangThai.getSelectedIndex();
         nhanVien.setTrangThai(trangThai);
         
-        lists = service.findByKey(ma);
-        if (lists != null) {
-            JOptionPane.showMessageDialog(this, "Nhan vien da ton tai");
-            return null;
-        }
         return nhanVien;
     }
 
@@ -351,6 +346,7 @@ public class NhanVienJpanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblNhanVien);
 
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel13.setText("Tìm kiếm:");
 
         txtTimKiem.addCaretListener(new javax.swing.event.CaretListener() {
@@ -397,43 +393,41 @@ public class NhanVienJpanel extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 879, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(jLabel13)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(200, 200, 200)
-                                .addComponent(btnLast)
-                                .addGap(102, 102, 102)
-                                .addComponent(btnPrevious)
-                                .addGap(103, 103, 103)
-                                .addComponent(btnNext)
-                                .addGap(76, 76, 76)
-                                .addComponent(btnFirst)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(200, 200, 200)
+                        .addComponent(btnLast)
+                        .addGap(102, 102, 102)
+                        .addComponent(btnPrevious)
+                        .addGap(103, 103, 103)
+                        .addComponent(btnNext)
+                        .addGap(76, 76, 76)
+                        .addComponent(btnFirst)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel13)
+                        .addGap(38, 38, 38)
+                        .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(29, 29, 29)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnFirst))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnPrevious, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnNext, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnLast))))
+                            .addComponent(btnLast)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(540, 540, 540)
+                        .addComponent(btnFirst)))
                 .addContainerGap())
         );
 
@@ -487,10 +481,6 @@ public class NhanVienJpanel extends javax.swing.JPanel {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         NhanVienCustom nhanVien = this.getData();
-        if (nhanVien == null) {
-            JOptionPane.showMessageDialog(this, "Nhan vien da ton tai");
-            return;
-        }
         String result = service.addOrUpdate(nhanVien);
         JOptionPane.showMessageDialog(this, result);
         lists = service.findByKey("");
@@ -507,10 +497,6 @@ public class NhanVienJpanel extends javax.swing.JPanel {
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
         NhanVienCustom nhanVien = this.getData();
-        if (nhanVien == null) {
-            JOptionPane.showMessageDialog(this, "Nhan vien da ton tai");
-            return;
-        }
         int index = tblNhanVien.getSelectedRow();
         String id = tblNhanVien.getValueAt(index, 0).toString();
         nhanVien.setId(Integer.parseInt(id));

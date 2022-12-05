@@ -8,6 +8,7 @@ import custom.BanCustom;
 import custom.KhuyenMaiCustom;
 import entity.Ban;
 import entity.KhuVuc;
+import entity.KhuyenMai;
 import java.util.ArrayList;
 import java.util.List;
 import repository.ICommonRepository;
@@ -34,9 +35,24 @@ public class KhuyenMaiServiceImpl implements ICommonService<KhuyenMaiCustom> {
 
     @Override
     public String addOrUpdate(KhuyenMaiCustom t) {
-        
-        return "";
+        String mess = "";
+        if (this.repo.addOrUpdate(new KhuyenMai(t.getId(), t.getMaKM(),
+                t.getPhanTram(), t.getNgayBatDau(), t.getNgayKetThuc(), t.getTrangThai()))) {
+            mess = "Thanh cong";
+        } else {
+            mess = "That bai";
+        }
+        return mess;
     }
 
-
+    public List<KhuyenMai> getAll() {
+        return this.repo.getAll();
+    }
+    
+    public KhuyenMai getIDbyPhanTram(int phanTram) {
+        return this.repo.getIDbyPhanTram(phanTram);
+    }
+    public KhuyenMai getbyMaKM (String makm){
+        return this.repo.getbyMaKM(makm);
+    }
 }

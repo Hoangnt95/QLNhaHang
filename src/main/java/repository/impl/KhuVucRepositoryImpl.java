@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.TypedQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import repository.ICommonRepository;
 import util.HibernateUtil;
 
@@ -52,17 +53,36 @@ public class KhuVucRepositoryImpl implements ICommonRepository<KhuVuc, KhuVucCus
         return list;
     }
 
-    public KhuVucCustom getById(int id) {
-        KhuVucCustom khuVuc = null;
+    @Override
+    public KhuVuc findById(int id) {
+        KhuVuc khuVuc = new KhuVuc();
         try ( Session session = HibernateUtil.getFACTORY().openSession()) {
-            String hql = "Select new custom.KhuVucCustom(a.id, a.maKV, "
-                    + "a.tenKV, a.trangThai) FROM KhuVuc a"
+            String hql = "Select a FROM KhuVuc a"
                     + " WHERE a.id = :id";
-            TypedQuery<KhuVucCustom> query = session.createQuery(hql, KhuVucCustom.class);
+            Query query = session.createQuery(hql);
             query.setParameter("id", id);
-            khuVuc = query.getSingleResult();
+            khuVuc = (KhuVuc) query.getSingleResult();
         }
         return khuVuc;
     }
+    public List<KhuVuc> getAll() {
+       List<KhuVuc> lists = new ArrayList<KhuVuc>();
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+            String hql = "SELECT m FROM KhuVuc m";
+            TypedQuery<KhuVuc> query = session.createQuery(hql, KhuVuc.class);
+            lists = query.getResultList();
+        }
+        return lists;
+    }
+    public KhuVuc getByTen(String ten){
+        KhuVuc kv = null;
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+            String hql = "select a from KhuVuc a WHERE a.tenKV = :tenKV ";
+            TypedQuery<KhuVuc> query = session.createQuery(hql, KhuVuc.class);
+            query.setParameter("tenKV", ten);
 
+            kv = query.getSingleResult();
+        }
+        return kv;
+    }
 }

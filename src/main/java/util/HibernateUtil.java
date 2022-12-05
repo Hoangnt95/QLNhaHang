@@ -46,7 +46,7 @@ public class HibernateUtil {
                 + "databaseName=QLNhaHang;encrypt=true;trustServerCertificate=true;");
         properties.put(Environment.USER, "sa");
         properties.put(Environment.PASS, "123456");
-        properties.put(Environment.SHOW_SQL, "true");
+        properties.put(Environment.SHOW_SQL, "false");
 
         //gen DB tự động
 //        properties.put(Environment.HBM2DDL_AUTO, "create");

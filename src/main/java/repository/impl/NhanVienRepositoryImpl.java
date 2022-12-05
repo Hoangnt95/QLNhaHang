@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.TypedQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import repository.ICommonRepository;
 import util.HibernateUtil;
 
@@ -64,6 +65,19 @@ public class NhanVienRepositoryImpl implements ICommonRepository<NhanVien, NhanV
             query.setParameter("ma", user);
             query.setParameter("matKhau", pass);
             nhanVien = query.getSingleResult();
+        }
+        return nhanVien;
+    }
+
+    @Override
+    public NhanVien findById(int id) {
+        NhanVien nhanVien = new NhanVien();
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+            String hql = "Select a FROM NhanVien a"
+                    + " WHERE a.id = :id";
+            Query query = session.createQuery(hql);
+            query.setParameter("id", id);
+            nhanVien = (NhanVien) query.getSingleResult();
         }
         return nhanVien;
     }

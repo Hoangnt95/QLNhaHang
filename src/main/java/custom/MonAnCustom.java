@@ -18,23 +18,23 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class MonAnCustom {
-    
+
     private int id;
-    
+
     private String maMon;
-    
+
     private String tenMon;
-    
+
     private String donViTinh;
-    
+
     private String hinhAnh;
-    
+
     private BigDecimal donGia;
-    
+
     private String ghiChu;
-    
+
     private int trangThai;
-    
+
     private int idDanhMuc;
-    
+
 }

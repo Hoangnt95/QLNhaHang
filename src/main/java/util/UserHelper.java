@@ -12,4 +12,5 @@ import custom.NhanVienCustom;
  */
 public class UserHelper {
     public static NhanVienCustom getUser;
+    public static String ma;
 }

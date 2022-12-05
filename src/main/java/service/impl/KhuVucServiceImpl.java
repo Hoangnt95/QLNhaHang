@@ -5,6 +5,7 @@
 package service.impl;
 
 import custom.KhuVucCustom;
+import entity.KhuVuc;
 import java.util.ArrayList;
 import java.util.List;
 import repository.ICommonRepository;
@@ -32,11 +33,22 @@ public class KhuVucServiceImpl implements ICommonService<KhuVucCustom> {
 
     @Override
     public String addOrUpdate(KhuVucCustom t) {  
-        return "";
+        String mess = "";
+        if (this.repo.addOrUpdate(new KhuVuc(t.getId(), t.getMaKV(), t.getTenKV(), t.getTrangThai()))) {
+            mess = "Thanh cong";
+        }else{
+            mess = "That bai";
+        }
+        return mess;
     }
     
-    public KhuVucCustom getById(int id) {
-        return this.repo.getById(id);
+    public KhuVuc getById(int id) {
+        return this.repo.findById(id);
     }
-    
+     public List<KhuVuc> getLists() {
+       return this.repo.getAll();
+    }
+      public KhuVuc getByTen(String ten){
+        return this.repo.getByTen(ten);
+    }
 }

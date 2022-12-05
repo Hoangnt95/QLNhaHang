@@ -4,11 +4,15 @@
  */
 package service.impl;
 
+import custom.DHCTBanHangCustom;
+import custom.DonHangChiTietCustom;
 import custom.NhanVienCustom;
+import entity.DonHangChiTiet;
 import entity.NhanVien;
 import java.util.ArrayList;
 import java.util.List;
 import repository.ICommonRepository;
+import repository.impl.DonHangChiTietRepositoryImpl;
 import repository.impl.NhanVienRepositoryImpl;
 import service.ICommonService;
 import util.Validate;
@@ -17,65 +21,69 @@ import util.Validate;
  *
  * @author admin
  */
-public class DonHangChiTietServiceImpl implements ICommonService<NhanVienCustom> {
+public class DonHangChiTietServiceImpl implements ICommonService<DonHangChiTietCustom> {
 
-    private NhanVienRepositoryImpl repo;
+    private DonHangChiTietRepositoryImpl repo;
     private List<NhanVienCustom> list;
 
     public DonHangChiTietServiceImpl() {
-        repo = new NhanVienRepositoryImpl();
+        repo = new DonHangChiTietRepositoryImpl();
         list = new ArrayList<>();
     }
 
     @Override
-    public List<NhanVienCustom> findByKey(String key) {
-        return this.repo.findByKey(key);
+    public String addOrUpdate(DonHangChiTietCustom t) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public String addOrUpdate(NhanVienCustom t) {
-        String mess = "";
-        int check = 0;
-        if (t.getMaNV().isEmpty()) {
-            mess = "Ma NV khong duoc bo trong";
-            check++;
-        } else if (!(t.getMaNV().matches(Validate.checkMaNV))) {
-            mess = "Ma NV khong dung dinh dang";
-            check++;
-        }
-        if (t.getHoTenNV().isEmpty()) {
-            mess = "Ho ten khong duoc bo trong";
-            check++;
-        } else if ((!t.getHoTenNV().matches(Validate.checkString))) {
-            mess = "Ho ten nhap vao chi la chu";
-            check++;
-        }
-        if (t.getSdt().isEmpty()) {
-            mess = "Sdt khong duoc bo trong";
-            check++;
-        } else if ((!t.getSdt().matches(Validate.checkSdt))) {
-            mess = "Sdt khong dung dinh dang";
-            check++;
-        }
-        if (check == 0) {
-            if (this.repo.addOrUpdate(new NhanVien(t.getId(), t.getMaNV(), t.getHoTenNV(),
-                    t.getGioiTinh(), t.getDiaChi(), t.getThanhPho(), t.getSdt(),
-                    t.getEmail(), t.getNgaySinh(), t.getMatKhau(), t.isVaiTro(), t.getTrangThai()))) {
-                mess = "Thanh cong";
-            } else {
-                mess = "That bai";
-            }
-        }
-
-        return mess;
+    public List<DonHangChiTietCustom> findByKey(String key) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-    public NhanVienCustom checkLogin(String user, String pass) {
-        NhanVienCustom nhanVien = this.repo.getNhanVien(user, pass);
-        if (nhanVien == null) {
-            nhanVien = null;
-        }
-        return nhanVien;
+     public DonHangChiTiet findById(int id){
+         return this.repo.findById(id);
+     }
+    public List<DHCTBanHangCustom> getDSOder(int idDH) {
+        return this.repo.getDSOder(idDH);
     }
-
+    
+    public String xoamon(int iddh, int idtd) {
+        if (this.repo.xoamon(iddh, idtd)) {
+            return "Thanh cong";
+        }
+        return "That bai";
+    }
+    
+    public DHCTBanHangCustom GetDsChiTiet(String mamon, String maban) {
+        return this.repo.GetDsChiTiet(mamon, maban);
+    }
+    public DHCTBanHangCustom GetIDDHCT(String tenMon, String maDH){
+          return this.repo.GetIDDHCT(tenMon, maDH);
+      }
+    public String UpdateChiTiet(DonHangChiTiet dhct){
+        if (this.repo.UpdateChiTiet(dhct)) {
+            return "Thanh cong";
+        }
+        return "That bai";
+    }
+     public String insert (DonHangChiTiet t) {
+        if(!this.repo.addOrUpdate(t)){
+           return "Thất bại";
+       }
+       return "Thành công";
+    }
+     public List<DonHangChiTiet> getListByIDDH(int iddh){
+           return this.repo.getListByIDDH(iddh);
+       }
+      public List<DonHangChiTiet> getDHCT(int iddh, int idmonan){
+          return this.repo.getDHCT(iddh, idmonan);
+      }
+       public String xoadhct(int iddhct){
+         if (!this.repo.delete(iddhct)) {
+            return "That bai";
+        }
+        return "Thanh cong";
+       
+     }
+       
 }

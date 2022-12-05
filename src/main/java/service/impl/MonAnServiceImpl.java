@@ -5,6 +5,10 @@
 package service.impl;
 
 import custom.MonAnCustom;
+import entity.DanhMuc;
+import entity.DonHang;
+import entity.MonAn;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import repository.ICommonRepository;
@@ -20,9 +24,11 @@ import service.ICommonService;
 public class MonAnServiceImpl implements ICommonService<MonAnCustom> {
 
     private MonAnRepositoryImpl repo;
+    private DanhMucService danhMucService;
 
     public MonAnServiceImpl() {
         repo = new MonAnRepositoryImpl();
+        danhMucService = new DanhMucService();
     }
 
     @Override
@@ -32,12 +38,36 @@ public class MonAnServiceImpl implements ICommonService<MonAnCustom> {
 
     @Override
     public String addOrUpdate(MonAnCustom t) {
-        
-        return "";
+        String mess;
+        DanhMuc danhMuc = danhMucService.getById(t.getIdDanhMuc());
+        if (this.repo.addOrUpdate(new MonAn(t.getId(), t.getMaMon(), t.getTenMon()
+                , t.getDonViTinh(), t.getHinhAnh(), t.getDonGia(), t.getGhiChu()
+                , t.getTrangThai(), danhMuc))) {
+            mess = "Thanh cong";
+        }else{
+            mess = "That bai";
+        }
+        return mess;
     }
 
-    public MonAnCustom getById(int id){
-        return this.repo.getById(id);
+    public MonAn getById(int id){
+        return this.repo.findById(id);
     }
-
+    
+    public List<MonAn> getAll(){
+        return this.repo.getAll();
+    }
+    
+    public MonAn getIdByMa(String key) {
+        return this.repo.getIdByMa(key);
+    }
+     public List<MonAn> GetThucDon(String key){
+         return this.repo.GetThucDon(key);
+     }
+     public List<MonAn> TimKiem(String key){
+         return this.repo.TimKiem(key);
+     }
+    public MonAn getIdByTenMon(String key){
+         return this.repo.getIdBytenMon(key);
+     } 
 }

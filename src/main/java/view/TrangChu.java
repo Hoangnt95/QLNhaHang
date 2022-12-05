@@ -5,14 +5,17 @@ import util.UserHelper;
 
 public class TrangChu extends javax.swing.JFrame {
 
+    public static TrangChu main;
+
     public TrangChu() {
         initComponents();
-         show(new ThongKeJPanel());
-//         lblTaiKhoan.setText(UserHelper.getUser.getMaNV());
-//         lblVaiTro.setText(UserHelper.getUser.VaiTroToString());
-        
+        main = this;
+        show(new ThongKeJPanel());
+        lblTaiKhoan.setText(UserHelper.getUser.getMaNV());
+        lblVaiTro.setText(UserHelper.getUser.VaiTroToString());
+
     }
-    
+
     public void show(JPanel a) {
         lbl_hihi.removeAll();
         lbl_hihi.add(a);
@@ -41,7 +44,6 @@ public class TrangChu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 204, 255));
-        setMaximumSize(new java.awt.Dimension(1920, 1080));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Trang Chủ");
@@ -49,9 +51,8 @@ public class TrangChu extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(153, 153, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Menu"));
 
-        jButton14.setBackground(new java.awt.Color(255, 255, 255));
         jButton14.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jButton14.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\QLNhaHang\\image\\iconApp\\Dang xuat.png")); // NOI18N
+        jButton14.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\Khanh\\QLNhaHang\\image\\iconApp\\Dang xuat.png")); // NOI18N
         jButton14.setText("Đăng Xuất");
         jButton14.setBorder(null);
         jButton14.setBorderPainted(false);
@@ -61,9 +62,8 @@ public class TrangChu extends javax.swing.JFrame {
             }
         });
 
-        btn_hoadon.setBackground(new java.awt.Color(255, 255, 255));
         btn_hoadon.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btn_hoadon.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\QLNhaHang\\image\\iconApp\\bill.png")); // NOI18N
+        btn_hoadon.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\Khanh\\QLNhaHang\\image\\iconApp\\bill.png")); // NOI18N
         btn_hoadon.setText("QL Hoá Đơn");
         btn_hoadon.setBorder(null);
         btn_hoadon.setBorderPainted(false);
@@ -73,9 +73,8 @@ public class TrangChu extends javax.swing.JFrame {
             }
         });
 
-        btn_thucdon.setBackground(new java.awt.Color(255, 255, 255));
         btn_thucdon.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btn_thucdon.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\QLNhaHang\\image\\iconApp\\menu.png")); // NOI18N
+        btn_thucdon.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\Khanh\\QLNhaHang\\image\\iconApp\\menu.png")); // NOI18N
         btn_thucdon.setText("Thực đơn");
         btn_thucdon.setBorder(null);
         btn_thucdon.setBorderPainted(false);
@@ -85,9 +84,8 @@ public class TrangChu extends javax.swing.JFrame {
             }
         });
 
-        btn_khuyenmai.setBackground(new java.awt.Color(255, 255, 255));
         btn_khuyenmai.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btn_khuyenmai.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\QLNhaHang\\image\\iconApp\\sale-tag.png")); // NOI18N
+        btn_khuyenmai.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\Khanh\\QLNhaHang\\image\\iconApp\\sale-tag.png")); // NOI18N
         btn_khuyenmai.setText("Khuyến Mãi");
         btn_khuyenmai.setBorder(null);
         btn_khuyenmai.setBorderPainted(false);
@@ -97,9 +95,8 @@ public class TrangChu extends javax.swing.JFrame {
             }
         });
 
-        btn_nhanvien.setBackground(new java.awt.Color(255, 255, 255));
         btn_nhanvien.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btn_nhanvien.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\QLNhaHang\\image\\iconApp\\Nhan vien.png")); // NOI18N
+        btn_nhanvien.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\Khanh\\QLNhaHang\\image\\iconApp\\Nhan vien.png")); // NOI18N
         btn_nhanvien.setText("Nhân Viên");
         btn_nhanvien.setBorder(null);
         btn_nhanvien.setBorderPainted(false);
@@ -109,9 +106,8 @@ public class TrangChu extends javax.swing.JFrame {
             }
         });
 
-        btn_thongke.setBackground(new java.awt.Color(255, 255, 255));
         btn_thongke.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btn_thongke.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\QLNhaHang\\image\\iconApp\\thongKe.png")); // NOI18N
+        btn_thongke.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\Khanh\\QLNhaHang\\image\\iconApp\\thongKe.png")); // NOI18N
         btn_thongke.setText("Thống kê");
         btn_thongke.setBorder(null);
         btn_thongke.setBorderPainted(false);
@@ -121,9 +117,8 @@ public class TrangChu extends javax.swing.JFrame {
             }
         });
 
-        btn_ban.setBackground(new java.awt.Color(255, 255, 255));
         btn_ban.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btn_ban.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\QLNhaHang\\image\\iconApp\\dining-table.png")); // NOI18N
+        btn_ban.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\Khanh\\QLNhaHang\\image\\iconApp\\dining-table.png")); // NOI18N
         btn_ban.setText("QL Bàn");
         btn_ban.setBorder(null);
         btn_ban.setBorderPainted(false);
@@ -133,9 +128,8 @@ public class TrangChu extends javax.swing.JFrame {
             }
         });
 
-        btn_donhang.setBackground(new java.awt.Color(255, 255, 255));
         btn_donhang.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btn_donhang.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\QLNhaHang\\image\\iconApp\\Ban hang.png")); // NOI18N
+        btn_donhang.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\Khanh\\QLNhaHang\\image\\iconApp\\Ban hang.png")); // NOI18N
         btn_donhang.setText("Bán hàng");
         btn_donhang.setBorder(null);
         btn_donhang.setBorderPainted(false);
@@ -199,10 +193,9 @@ public class TrangChu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 562, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 580, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(411, 411, 411)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,9 +204,12 @@ public class TrangChu extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblVaiTro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(lbl_hihi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(21, 21, 21))
+                            .addComponent(lblVaiTro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(21, 21, 21))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_hihi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,11 +240,11 @@ public class TrangChu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_thucdonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_thucdonActionPerformed
-       show(new ThucDonpanel());
+        show(new ThucDonpanel());
     }//GEN-LAST:event_btn_thucdonActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-       System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void btn_khuyenmaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_khuyenmaiActionPerformed
@@ -303,7 +299,7 @@ public class TrangChu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TrangChu().setVisible(true);
+                new TrangChu().setVisible(false);
             }
         });
     }

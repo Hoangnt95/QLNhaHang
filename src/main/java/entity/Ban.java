@@ -19,24 +19,29 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Ban implements Serializable{
-    
+public class Ban implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int id;
-    
+
     @Column(name = "MaBan")
     private String maBan;
-    
+
     @Column(name = "SoLuongChoNgoi")
     private int soLuongChoNgoi;
-    
+
     @Column(name = "TrangThai")
     private int trangThai;
-    
+
     @ManyToOne
     @JoinColumn(name = "IdKhuVuc")
     private KhuVuc idKhuVuc;
-    
+
+    public Ban(String maBan, int trangThai) {
+        this.maBan = maBan;
+        this.trangThai = trangThai;
+    }
+
 }

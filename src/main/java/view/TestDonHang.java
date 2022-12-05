@@ -26,9 +26,10 @@ public class TestDonHang extends javax.swing.JPanel {
     public static TestDonHang dh;
     JPanel jps;
     List<BanCustom> arrBan;
+    List<Ban> listBan;
     List<KhuVucCustom> khuvucList;
     List<JPanel> listjp = new ArrayList<JPanel>();
-    List<BanCustom> ban;
+    BanCustom ban;
     int idBan;
 
     public TestDonHang() {
@@ -87,15 +88,15 @@ public class TestDonHang extends javax.swing.JPanel {
                 btn[i].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mousePressed(MouseEvent e) {
-//                        JpGoiMon goimon;
-//                        System.out.println(e.getComponent().getName());
-//                        ban = bandao.Getban(e.getComponent().getName());
-//                        if (ban != null) {
-//                            goimon = new JpGoiMon(ban.get(0).getTrangThai(), ban.get(0).getMaBan());
-//                            jPanel3.removeAll();
-//                            jPanel3.add(goimon);
-//                            jPanel3.updateUI();
-//                        }
+                        JpGoiMon goimon;
+                        System.out.println(e.getComponent().getName());
+                        ban = bandao.Getban(e.getComponent().getName());
+                        if (ban != null) {
+                            goimon = new JpGoiMon(ban.getTrangThai(), ban.getMaBan());
+                            pnlBanHang.removeAll();
+                            pnlBanHang.add(goimon);
+                            pnlBanHang.updateUI();
+                        }
                     }
                 });
                 jpBan.add(btn[i]);
@@ -150,6 +151,11 @@ public class TestDonHang extends javax.swing.JPanel {
         jRadioButton3.setText("Đã đặt");
 
         jRadioButton4.setText("Trống");
+        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton4ActionPerformed(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(204, 0, 204));
 
@@ -176,34 +182,34 @@ public class TestDonHang extends javax.swing.JPanel {
             .addGroup(pnlBanLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(pnlBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlBanLayout.createSequentialGroup()
-                        .addComponent(jRadioButton2)
-                        .addGap(27, 27, 27)
-                        .addComponent(jRadioButton3)
-                        .addGap(33, 33, 33)
-                        .addComponent(jRadioButton4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBanLayout.createSequentialGroup()
                         .addGroup(pnlBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jpBan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tab, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlBanLayout.createSequentialGroup()
-                                .addGroup(pnlBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(tab, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnlBanLayout.createSequentialGroup()
-                                        .addComponent(jLabel14)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel13)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel11)
+                                .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(31, 31, 31))))
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31))
+                    .addGroup(pnlBanLayout.createSequentialGroup()
+                        .addGroup(pnlBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlBanLayout.createSequentialGroup()
+                                .addComponent(jRadioButton2)
+                                .addGap(27, 27, 27)
+                                .addComponent(jRadioButton3)
+                                .addGap(33, 33, 33)
+                                .addComponent(jRadioButton4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButton1))
+                            .addComponent(jpBan, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         pnlBanLayout.setVerticalGroup(
             pnlBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,7 +223,7 @@ public class TestDonHang extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tab, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpBan, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
+                .addComponent(jpBan, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(pnlBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -230,16 +236,7 @@ public class TestDonHang extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout pnlBanHangLayout = new javax.swing.GroupLayout(pnlBanHang);
-        pnlBanHang.setLayout(pnlBanHangLayout);
-        pnlBanHangLayout.setHorizontalGroup(
-            pnlBanHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        pnlBanHangLayout.setVerticalGroup(
-            pnlBanHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        pnlBanHang.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -251,7 +248,7 @@ public class TestDonHang extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(pnlBan, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlBanHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnlBanHang, javax.swing.GroupLayout.DEFAULT_SIZE, 816, Short.MAX_VALUE)
                         .addGap(17, 17, 17))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 935, Short.MAX_VALUE)
@@ -280,7 +277,7 @@ public class TestDonHang extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 24, Short.MAX_VALUE))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,6 +295,12 @@ public class TestDonHang extends javax.swing.JPanel {
         List<BanCustom> listBan = bandao.getkhuvuc(listKhuVuc.get(0).getId());
         FillBan(listBan);
     }//GEN-LAST:event_tabMouseClicked
+
+    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
+        // TODO add your handling code here:
+//         arrBan = bandao.GetbanByTrangThai(0);
+//        FillBan(arrBan);
+    }//GEN-LAST:event_jRadioButton4ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

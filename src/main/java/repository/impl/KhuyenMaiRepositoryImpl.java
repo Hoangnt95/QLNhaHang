@@ -4,9 +4,7 @@
  */
 package repository.impl;
 
-import custom.BanCustom;
 import custom.KhuyenMaiCustom;
-import entity.Ban;
 import entity.KhuyenMai;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,9 +42,9 @@ public class KhuyenMaiRepositoryImpl implements ICommonRepository<KhuyenMai, Khu
     public List<KhuyenMaiCustom> findByKey(String key) {
         List<KhuyenMaiCustom> list = new ArrayList<>();
         try ( Session session = HibernateUtil.getFACTORY().openSession()) {
-            String hql = "Select new custom.KhuyenMaiCustom(a.id, a.maGiamGia, "
-                    + "a.phanTram, a.ngayBatDau, a,ngayKetThuc,a.trangThai) FROM KhuyenMai a"
-                    + " WHERE a.maGiamGia LIKE CONCAT('%',:ma,'%')";
+            String hql = "SELECT new custom.KhuyenMaiCustom(a.id, a.maGiamGia"
+                    + ", a.phanTram, a.ngayBatDau, a.ngayKetThuc, a.trangThai)"
+                    + " FROM KhuyenMai a WHERE a.maGiamGia LIKE CONCAT('%',:ma,'%') ";
             TypedQuery<KhuyenMaiCustom> query = session.createQuery(hql, KhuyenMaiCustom.class);
             query.setParameter("ma", key);
             list = query.getResultList();
@@ -54,5 +52,50 @@ public class KhuyenMaiRepositoryImpl implements ICommonRepository<KhuyenMai, Khu
         return list;
     }
 
+    @Override
+    public KhuyenMai findById(int id) {
+        KhuyenMai khuyenMai = new KhuyenMai();
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+            String hql = "Select a FROM KhuyenMai a"
+                    + " WHERE a.id = :id";
+            Query query = session.createQuery(hql);
+            query.setParameter("id", id);
+            khuyenMai = (KhuyenMai) query.getSingleResult();
+        }
+        return khuyenMai;
+    }
 
+    public List<KhuyenMai> getAll() {
+        List<KhuyenMai> lists = new ArrayList<>();
+        try ( Session session = HibernateUtil.getFACTORY().openSession();) {
+            Query query = session.createQuery("From KhuyenMai");
+            lists = query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+        }
+        return lists;
+    }
+
+    public KhuyenMai getIDbyPhanTram(int phanTram) {
+        KhuyenMai km = null;
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+            String hql = "select a from KhuyenMai a WHERE a.phanTram = :phanTram ";
+            TypedQuery<KhuyenMai> query = session.createQuery(hql, KhuyenMai.class);
+            query.setParameter("phanTram", phanTram);
+
+            km = query.getSingleResult();
+        }
+        return km;
+    }
+    public KhuyenMai getbyMaKM (String makm){
+        KhuyenMai km = null;
+         try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+            String hql = "select a from KhuyenMai a WHERE a.maGiamGia = :maGiamGia ";
+           TypedQuery<KhuyenMai> query = session.createQuery(hql, KhuyenMai.class);
+            query.setParameter("maGiamGia", makm);
+          
+            km =  query.getSingleResult();
+        }
+        return km;
+    }
 }
