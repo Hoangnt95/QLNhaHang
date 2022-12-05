@@ -6,9 +6,6 @@
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="ff" green="cc" red="99" type="rgb"/>
     </Property>
-    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1920, 1080]"/>
-    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -34,14 +31,24 @@
               <Component id="jPanel2" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace type="unrelated" pref="590" max="32767" attributes="0"/>
+                      <EmptySpace pref="580" max="32767" attributes="0"/>
                       <Component id="jLabel1" min="-2" pref="140" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="560" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="411" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel3" alignment="0" min="-2" pref="57" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblTaiKhoan" min="-2" pref="73" max="-2" attributes="0"/>
+                          <Component id="lblVaiTro" alignment="1" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="lbl_hihi" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -56,9 +63,24 @@
                       <Component id="jPanel2" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblTaiKhoan" min="-2" pref="16" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblVaiTro" min="-2" pref="16" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                       <Component id="lbl_hihi" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -93,7 +115,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="btn_donhang" alignment="1" max="32767" attributes="0"/>
               <Component id="btn_thucdon" alignment="1" max="32767" attributes="0"/>
-              <Component id="btn_khuyenmai" alignment="1" pref="244" max="32767" attributes="0"/>
+              <Component id="btn_khuyenmai" alignment="1" pref="237" max="32767" attributes="0"/>
               <Component id="btn_nhanvien" alignment="1" max="32767" attributes="0"/>
               <Component id="btn_ban" alignment="1" max="32767" attributes="0"/>
               <Component id="btn_hoadon" alignment="1" max="32767" attributes="0"/>
@@ -128,14 +150,11 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="jButton14">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="16" style="1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\admin\Desktop\QLNhaHang\image\iconApp\Dang xuat.png"/>
+              <Image iconType="2" name="C:\Users\admin\Desktop\Khanh\QLNhaHang\image\iconApp\Dang xuat.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="&#x110;&#x103;ng Xu&#x1ea5;t"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -149,14 +168,11 @@
         </Component>
         <Component class="javax.swing.JButton" name="btn_hoadon">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="16" style="1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\admin\Desktop\QLNhaHang\image\iconApp\bill.png"/>
+              <Image iconType="2" name="C:\Users\admin\Desktop\Khanh\QLNhaHang\image\iconApp\bill.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="QL Ho&#xe1; &#x110;&#x1a1;n"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -170,14 +186,11 @@
         </Component>
         <Component class="javax.swing.JButton" name="btn_thucdon">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="16" style="1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\admin\Desktop\QLNhaHang\image\iconApp\menu.png"/>
+              <Image iconType="2" name="C:\Users\admin\Desktop\Khanh\QLNhaHang\image\iconApp\menu.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Th&#x1ef1;c &#x111;&#x1a1;n"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -191,14 +204,11 @@
         </Component>
         <Component class="javax.swing.JButton" name="btn_khuyenmai">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="16" style="1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\admin\Desktop\QLNhaHang\image\iconApp\sale-tag.png"/>
+              <Image iconType="2" name="C:\Users\admin\Desktop\Khanh\QLNhaHang\image\iconApp\sale-tag.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Khuy&#x1ebf;n M&#xe3;i"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -212,14 +222,11 @@
         </Component>
         <Component class="javax.swing.JButton" name="btn_nhanvien">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="16" style="1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\admin\Desktop\QLNhaHang\image\iconApp\Nhan vien.png"/>
+              <Image iconType="2" name="C:\Users\admin\Desktop\Khanh\QLNhaHang\image\iconApp\Nhan vien.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Nh&#xe2;n Vi&#xea;n"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -233,14 +240,11 @@
         </Component>
         <Component class="javax.swing.JButton" name="btn_thongke">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="16" style="1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\admin\Desktop\QLNhaHang\image\iconApp\thongKe.png"/>
+              <Image iconType="2" name="C:\Users\admin\Desktop\Khanh\QLNhaHang\image\iconApp\thongKe.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Th&#x1ed1;ng k&#xea;"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -254,14 +258,11 @@
         </Component>
         <Component class="javax.swing.JButton" name="btn_ban">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="16" style="1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\admin\Desktop\QLNhaHang\image\iconApp\dining-table.png"/>
+              <Image iconType="2" name="C:\Users\admin\Desktop\Khanh\QLNhaHang\image\iconApp\dining-table.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="QL B&#xe0;n"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -275,14 +276,11 @@
         </Component>
         <Component class="javax.swing.JButton" name="btn_donhang">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="16" style="1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\admin\Desktop\QLNhaHang\image\iconApp\Ban hang.png"/>
+              <Image iconType="2" name="C:\Users\admin\Desktop\Khanh\QLNhaHang\image\iconApp\Ban hang.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="B&#xe1;n h&#xe0;ng"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -300,5 +298,35 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
     </Container>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="3"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="T&#xe0;i kho&#x1ea3;n :"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel3">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="3"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value=" Vai tr&#xf2; :"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblTaiKhoan">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="3"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblVaiTro">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="3"/>
+        </Property>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>
