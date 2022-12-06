@@ -27,7 +27,7 @@ public class KhuVucJDialog extends javax.swing.JDialog {
         KhuVucModel.setColumnIdentifiers(new String[]{"ID", "Mã khu vực", "Tên khu vực", "Trạng thái"});
         for (KhuVucCustom o : list) {
             KhuVucModel.addRow(new Object[]{o.getId(), o.getMaKV(), o.getTenKV(),
-                 o.getTrangThai() == 0 ? "Còn hoạt động" : "Không còn hoạt động"});
+                o.getTrangThai() == 0 ? "Còn hoạt động" : "Không còn hoạt động"});
         }
         tblKhuVuc.setModel(KhuVucModel);
     }
@@ -278,8 +278,12 @@ public class KhuVucJDialog extends javax.swing.JDialog {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         KhuVucCustom khuVuc = this.getData();
-        String result = this.khuvucser.addOrUpdate(khuVuc);
-        JOptionPane.showMessageDialog(this, result);
+        String result = khuvucser.checkInfor(khuVuc, null);
+        if (result.equals("OK")) {
+            JOptionPane.showMessageDialog(this, khuvucser.addOrUpdate(khuVuc));
+        } else {
+            JOptionPane.showMessageDialog(this, result);
+        }
         listKhuVuc = this.khuvucser.findByKey("");
         loadTable(listKhuVuc);
     }//GEN-LAST:event_btnThemActionPerformed
@@ -287,11 +291,16 @@ public class KhuVucJDialog extends javax.swing.JDialog {
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
         int index = tblKhuVuc.getSelectedRow();
-        int id = Integer.parseInt(tblKhuVuc.getValueAt(index, 0).toString());
-        KhuVucCustom khuVuc = this.getData();
-        khuVuc.setId(id);
-        String result = this.khuvucser.addOrUpdate(khuVuc);
-        JOptionPane.showMessageDialog(this, result);
+        listKhuVuc = this.khuvucser.findByKey("");
+        KhuVucCustom khuVucIndex = listKhuVuc.get(index);
+        KhuVucCustom KhuVuc2 = this.getData();
+        String result = khuvucser.checkInfor(khuVucIndex, KhuVuc2);
+        if (result.equals("OK")) {
+            KhuVuc2.setId(khuVucIndex.getId());
+            JOptionPane.showMessageDialog(this, khuvucser.addOrUpdate(KhuVuc2));
+        } else {
+            JOptionPane.showMessageDialog(this, result);
+        }
         listKhuVuc = this.khuvucser.findByKey("");
         loadTable(listKhuVuc);
     }//GEN-LAST:event_btnSuaActionPerformed

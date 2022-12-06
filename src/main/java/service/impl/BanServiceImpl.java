@@ -81,4 +81,39 @@ public class BanServiceImpl implements ICommonService<BanCustom> {
        public List<BanCustom> GetbanByTrangThai(int tt){
          return this.repo.GetbanByTrangThai(tt);
      }
+       
+    public String checkInfor(BanCustom ban1, BanCustom ban2){
+        if (ban1.getId() == 0){
+            if (ban1.getMaBan().trim().equals("")){
+                return "Mã bàn trống";
+            } else if (getIDbyMa(ban1.getMaBan()) != null){
+                return "Mã bàn đã tồn tại";
+            } else {
+                return "OK";
+            }
+        } else {
+            if (ban1.getMaBan().trim().equals("")){
+                return "Mã bàn trống";
+            } else {
+                Ban banCheck = getIDbyMa(ban2.getMaBan());
+                if (banCheck == null){
+                    return "OK";
+                } else if (ban1.getMaBan().equals(ban2.getMaBan())){
+                    return "OK";
+                } else {
+                    return "Mã bàn đã tồn tại";
+                }
+            }
+        }
+    }
+    
+    public String checkNumber(String number){
+        String matches = "^[0-9]{1,}$";
+        if (number.trim().equals("")){
+            return "Số lượng trống";
+        } else if (!number.matches(matches)){
+            return "Số lượng sai định dạng";
+        }
+        return "OK";
+    }
 }

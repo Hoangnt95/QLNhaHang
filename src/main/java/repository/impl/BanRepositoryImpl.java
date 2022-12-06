@@ -52,7 +52,6 @@ public class BanRepositoryImpl implements ICommonRepository<Ban, BanCustom> {
 
         return result;
     }
-    
 
     @Override
     public List<BanCustom> findByKey(String key) {
@@ -133,10 +132,14 @@ public class BanRepositoryImpl implements ICommonRepository<Ban, BanCustom> {
             query.setParameter("maBan", maBan);
 
             ban = query.getSingleResult();
+            return ban;
+        } catch (Exception e) {
+            return null;
         }
-        return ban;
+
     }
-    public Ban getBanByKV(String maban, String tenkv){
+
+    public Ban getBanByKV(String maban, String tenkv) {
         Ban ban = null;
         try ( Session session = HibernateUtil.getFACTORY().openSession()) {
             String hql = "select a from Ban a WHERE a.maBan = :maBan and a.idKhuVuc.tenKV =: tenkv";
@@ -147,20 +150,21 @@ public class BanRepositoryImpl implements ICommonRepository<Ban, BanCustom> {
         }
         return ban;
     }
+
     public List<BanCustom> GetbanByTrangThai(int tt) {
-      List<BanCustom> result = null;
-      String hql;
-      try ( Session session = HibernateUtil.getFACTORY().openSession()) {
-          
+        List<BanCustom> result = null;
+        String hql;
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+
             hql = "Select new custom.BanCustom(a.id, a.maBan, "
                     + "a.soLuongChoNgoi, a.trangThai, a.idKhuVuc.id) FROM Ban a WHERE a.trangThai = :tt";
             //String hql = "select a from Ban a WHERE a.id = :id ";
-            Query query = session.createQuery(hql);           
+            Query query = session.createQuery(hql);
             query.setParameter("tt", tt);
-          //  query.setParameter("tt", 0);             
+            //  query.setParameter("tt", 0);             
             result = query.getResultList();
         }
-      
+
         return result;
-        }
+    }
 }

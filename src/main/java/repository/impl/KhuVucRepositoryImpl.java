@@ -62,11 +62,30 @@ public class KhuVucRepositoryImpl implements ICommonRepository<KhuVuc, KhuVucCus
             Query query = session.createQuery(hql);
             query.setParameter("id", id);
             khuVuc = (KhuVuc) query.getSingleResult();
+            return khuVuc;
+        } catch (Exception e) {
+            return null;
         }
-        return khuVuc;
+
     }
+    
+    public KhuVuc findByMA(String maKV) {
+        KhuVuc khuVuc = new KhuVuc();
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+            String hql = "Select a FROM KhuVuc a"
+                    + " WHERE a.maKV = :maKV";
+            Query query = session.createQuery(hql);
+            query.setParameter("maKV", maKV);
+            khuVuc = (KhuVuc) query.getSingleResult();
+            return khuVuc;
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
     public List<KhuVuc> getAll() {
-       List<KhuVuc> lists = new ArrayList<KhuVuc>();
+        List<KhuVuc> lists = new ArrayList<KhuVuc>();
         try ( Session session = HibernateUtil.getFACTORY().openSession()) {
             String hql = "SELECT m FROM KhuVuc m";
             TypedQuery<KhuVuc> query = session.createQuery(hql, KhuVuc.class);
@@ -74,7 +93,8 @@ public class KhuVucRepositoryImpl implements ICommonRepository<KhuVuc, KhuVucCus
         }
         return lists;
     }
-    public KhuVuc getByTen(String ten){
+
+    public KhuVuc getByTen(String ten) {
         KhuVuc kv = null;
         try ( Session session = HibernateUtil.getFACTORY().openSession()) {
             String hql = "select a from KhuVuc a WHERE a.tenKV = :tenKV ";
