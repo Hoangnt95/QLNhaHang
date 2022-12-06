@@ -108,5 +108,13 @@ public class NhanVienRepositoryImpl implements ICommonRepository<NhanVien, NhanV
         }
         return nhanVien;
     }
+    
+    public static void main(String[] args) {
+        NhanVienCustom nhanVien = new NhanVienRepositoryImpl().getNhanVienByEmail("hoangnaa");
+        if (nhanVien == null) {
+            System.out.println("faild");
+        }
+        System.out.println(nhanVien);
+    }
 
 }

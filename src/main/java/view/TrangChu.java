@@ -12,9 +12,9 @@ public class TrangChu extends javax.swing.JFrame {
         initComponents();
         main = this;
         show(new ThongKeJPanel());
-        lblTaiKhoan.setText(UserHelper.getUser.getMaNV());
-        lblVaiTro.setText(UserHelper.getUser.VaiTroToString());
-        checkRole(UserHelper.getUser.isVaiTro());
+//        lblTaiKhoan.setText(UserHelper.getUser.getMaNV());
+//        lblVaiTro.setText(UserHelper.getUser.VaiTroToString());
+//        checkRole(UserHelper.getUser.isVaiTro());
     }
 
     public void show(JPanel a) {
@@ -319,7 +319,7 @@ public class TrangChu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TrangChu().setVisible(false);
+                new TrangChu().setVisible(true);
             }
         });
     }
