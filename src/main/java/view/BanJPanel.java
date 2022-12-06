@@ -31,11 +31,11 @@ public class BanJPanel extends javax.swing.JPanel {
 
     private void loadTable(List<Ban> list) {
         banModel = new DefaultTableModel();
-        banModel.setColumnIdentifiers(new String[]{"ID","Mã bàn", "Số lượng chỗ ngồi", "Trạng thái", "Vị trí"});
+        banModel.setColumnIdentifiers(new String[]{"ID", "Mã bàn", "Số lượng chỗ ngồi", "Trạng thái", "Vị trí"});
         for (Ban o : list) {
-            banModel.addRow(new Object[]{o.getId(),o.getMaBan(), o.getSoLuongChoNgoi(),
+            banModel.addRow(new Object[]{o.getId(), o.getMaBan(), o.getSoLuongChoNgoi(),
                 o.getTrangThai() == 0 ? "Còn hoạt động" : "Không còn hoạt động",
-                 o.getIdKhuVuc().getTenKV()});
+                o.getIdKhuVuc().getTenKV()});
         }
         tblBan.setModel(banModel);
     }
@@ -66,13 +66,15 @@ public class BanJPanel extends javax.swing.JPanel {
         ban.setMaBan(ma);
 
         String soLuong = txtSoLuong.getText().trim();
-        ban.setSoLuongChoNgoi(Integer.parseInt(soLuong));
-
+        if (banser.checkNumber(soLuong).equals("OK")) {
+            ban.setSoLuongChoNgoi(Integer.parseInt(soLuong));
+        } 
+        
         int trangThai = cbbTrangThai.getSelectedIndex();
         ban.setTrangThai(trangThai);
 
         int khuVuc = cbbKhuVuc.getSelectedIndex();
-        ban.setKhuVuc(khuVuc+1);
+        ban.setKhuVuc(khuVuc + 1);
 
         return ban;
     }
@@ -345,8 +347,17 @@ public class BanJPanel extends javax.swing.JPanel {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         BanCustom ban = this.getData();
-        String result = banser.addOrUpdate(ban);
-        JOptionPane.showMessageDialog(this, result);
+        String result = banser.checkInfor(ban, null);
+        if (result.equals("OK")) {
+            if (banser.checkNumber(txtSoLuong.getText()).equals("OK")){
+                JOptionPane.showMessageDialog(this, banser.addOrUpdate(ban));
+            } else {
+                JOptionPane.showMessageDialog(this, banser.checkNumber(txtSoLuong.getText()));
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, result);
+        }
+
         listBan = banser.getAll();
         loadTable(listBan);
     }//GEN-LAST:event_btnThemActionPerformed
@@ -354,11 +365,23 @@ public class BanJPanel extends javax.swing.JPanel {
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
         int index = tblBan.getSelectedRow();
-        int id = Integer.parseInt(tblBan.getValueAt(index, 0).toString());
+        listBan = banser.getAll();
+        Ban banIndex = listBan.get(index);
         BanCustom ban = this.getData();
-        ban.setId(id);
-        String result = banser.addOrUpdate(ban);
-        JOptionPane.showMessageDialog(this, result);
+        BanCustom ban2 = this.getData();
+        ban.setId(banIndex.getId());
+        ban.setMaBan(banIndex.getMaBan());
+        String result = banser.checkInfor(ban, ban2);
+        if (result.equals("OK")) {
+            if (banser.checkNumber(txtSoLuong.getText()).equals("OK")){
+                ban2.setId(banIndex.getId());
+                JOptionPane.showMessageDialog(this, banser.addOrUpdate(ban2));
+            } else {
+                JOptionPane.showMessageDialog(this, banser.checkNumber(txtSoLuong.getText()));
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, result);
+        }
         listBan = banser.getAll();
         loadTable(listBan);
     }//GEN-LAST:event_btnSuaActionPerformed

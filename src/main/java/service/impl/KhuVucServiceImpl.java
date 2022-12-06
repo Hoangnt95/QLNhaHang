@@ -32,23 +32,59 @@ public class KhuVucServiceImpl implements ICommonService<KhuVucCustom> {
     }
 
     @Override
-    public String addOrUpdate(KhuVucCustom t) {  
+    public String addOrUpdate(KhuVucCustom t) {
         String mess = "";
         if (this.repo.addOrUpdate(new KhuVuc(t.getId(), t.getMaKV(), t.getTenKV(), t.getTrangThai()))) {
             mess = "Thanh cong";
-        }else{
+        } else {
             mess = "That bai";
         }
         return mess;
     }
-    
+
     public KhuVuc getById(int id) {
         return this.repo.findById(id);
     }
-     public List<KhuVuc> getLists() {
-       return this.repo.getAll();
+
+    public List<KhuVuc> getLists() {
+        return this.repo.getAll();
     }
-      public KhuVuc getByTen(String ten){
+
+    public KhuVuc getByTen(String ten) {
         return this.repo.getByTen(ten);
     }
+
+    public KhuVuc getByMa(String maKV) {
+        return this.repo.findByMA(maKV);
+    }
+
+    public String checkInfor(KhuVucCustom khuVuc1, KhuVucCustom khuVuc2) {
+        if (khuVuc1.getId() == 0) {
+            if (khuVuc1.getMaKV().trim().equals("")) {
+                return "Mã khu vực trống";
+            } else if (getByMa(khuVuc1.getMaKV()) != null) {
+                return "Mã khu vực đã tồn tại";
+            } else if (khuVuc1.getTenKV().trim().equals("")) {
+                return "Tên khu vực trống";
+            } else {
+                return "OK";
+            }
+        } else {
+            if (khuVuc1.getMaKV().trim().equals("")) {
+                return "Mã khu vực trống";
+            } else if (khuVuc1.getTenKV().trim().equals("")) {
+                return "Tên khu vực trống";
+            } else {
+                KhuVuc khuVucCheck = getByMa(khuVuc2.getMaKV());
+                if (khuVucCheck == null) {
+                    return "OK";
+                } else if (khuVuc1.getMaKV().equals(khuVuc2.getMaKV())) {
+                    return "OK";
+                } else {
+                    return "Mã khu vực đã tồn tại";
+                }
+            }
+        }
+    }
+
 }
