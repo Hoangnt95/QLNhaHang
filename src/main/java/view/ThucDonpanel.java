@@ -345,8 +345,8 @@ public class ThucDonpanel extends javax.swing.JPanel {
                     .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addGap(15, 15, 15)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -404,7 +404,11 @@ public class ThucDonpanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnchonanhActionPerformed
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
-
+         if (txtmamon.getText().isBlank() || txttenmon.getText().isBlank()
+                 || txtdongia.getText().isBlank()||txtdonvitinh.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Không được để trống");
+            return;
+        }
         MonAnCustom monAn = this.getdata();
         JOptionPane.showMessageDialog(this, monanservice.addOrUpdate(monAn));
         Loadtable(monanservice.getAll());

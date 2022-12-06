@@ -3,50 +3,96 @@ package view;
 import com.raven.chart.ModelChart;
 import java.awt.Color;
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.Formatter;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import repository.impl.ThongKeRepositoryImpl;
 
 public class ThongKeJPanel extends javax.swing.JPanel {
+
     private ThongKeRepositoryImpl _ThongKeRepository;
+    private SimpleDateFormat spd;
+
     public ThongKeJPanel() {
         initComponents();
         _ThongKeRepository = new ThongKeRepositoryImpl();
-         chart.addLegend("Income", new Color(245, 189, 135));
-        chart.addLegend("Expense", new Color(135, 189, 245));
-        chart.addLegend("Profit", new Color(189, 135, 245));
-        chart.addLegend("Cost", new Color(139, 229, 222));
-        chart.addData(new ModelChart("January", new double[]{500, 200, 80,89}));
-        chart.addData(new ModelChart("February", new double[]{600, 750, 90,150}));
-        chart.addData(new ModelChart("March", new double[]{200, 350, 460,900}));
-        chart.addData(new ModelChart("April", new double[]{480, 150, 750,700}));
-        chart.addData(new ModelChart("May", new double[]{350, 540, 300,150}));
-        chart.addData(new ModelChart("June", new double[]{190, 280, 81,200}));
+        chart.addLegend("Income", new Color(245, 189, 135));
+//        chart.addLegend("Expense", new Color(135, 189, 245));
+//        chart.addLegend("Profit", new Color(189, 135, 245));
+//        chart.addLegend("Cost", new Color(139, 229, 222));
+        //chart.addData(new ModelChart("January", new ThongKeJPanel()._ThongKeRepository.TongTien6()));
+        //chart.addData(new ModelChart("February", new double[]{600, 750, 90, 150}));
+        chart.addData(new ModelChart("March", new double[]{Double.parseDouble(tongmathang(txtdate1.getDate(), txtdate2.getDate()))}));
+//        chart.addData(new ModelChart("April", new double[]{480, 150, 750, 700}));
+//        chart.addData(new ModelChart("May", new double[]{350, 540, 300, 150}));
+//        chart.addData(new ModelChart("June", new double[]{190, 280, 81, 200}));
          lbl_tongtien.setText(tongtien2() + " VND");
-         lbl_tonghoadon.setText(tongtien3()+ "Hoá đơn");
-         lbl_sanpham.setText(tongtien4()+ "Mặt Hàng");
+         lbl_tonghoadon.setText(tongHoadon()+ "Hoá đơn");
+         lbl_sanpham.setText(tongmathang() + "mat hang");
+
+        
+        // lbl_tensp.setText(tongtien5() );
+        fillTableTheoNam();
     }
 
-    
-     public String tongtien2() {
+    public String tongtien2() {
         String s = NumberFormat.getIntegerInstance().format(_ThongKeRepository.TongTien2());
         return s;
     }
-    
-    public String tongtien3() {
+
+    public String tongHoadon() {
         String s = NumberFormat.getIntegerInstance().format(_ThongKeRepository.TongTien3());
         return s;
     }
     
-    public String tongtien4() {
+    public String tongmathang() {
         String s = NumberFormat.getIntegerInstance().format(_ThongKeRepository.TongTien4());
         return s;
     }
+
+    public String Sanphanbanchay() {
+        String s = _ThongKeRepository.sanphambanchay(1);
+        return s;
+    }
+
+    void fillTableTheoNam() {
+        DefaultTableModel model = (DefaultTableModel) tblsanpham.getModel();
+        model.setRowCount(0);
+        List<Object[]> list = _ThongKeRepository.thongke4(10);
+        for (Object[] row : list) {
+            model.addRow(row);
+        }
+    }
+
+    public String tongmathang(Date date1, Date date2) {
+
+        String s = NumberFormat.getIntegerInstance().format(_ThongKeRepository.TongTientheongay(date1, date2));
+
+        return s;
+    }
+    
+    public String tongtien(Date date1, Date date2) {
+
+        String s = NumberFormat.getIntegerInstance().format(_ThongKeRepository.Tongtien1theongay(date1, date2));
+
+        return s;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblsanpham = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -61,11 +107,11 @@ public class ThongKeJPanel extends javax.swing.JPanel {
         lbl_sanpham = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        lbl_tensp = new javax.swing.JLabel();
+        txtdate1 = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jDateChooser3 = new com.toedter.calendar.JDateChooser();
+        txtdate2 = new com.toedter.calendar.JDateChooser();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -73,7 +119,7 @@ public class ThongKeJPanel extends javax.swing.JPanel {
 
         jPanel4.setBackground(new java.awt.Color(153, 153, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblsanpham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -84,7 +130,7 @@ public class ThongKeJPanel extends javax.swing.JPanel {
                 "stt", "Mã sp", "Tên sp", "giá", "số lượng "
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblsanpham);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Thống kê ");
@@ -186,7 +232,7 @@ public class ThongKeJPanel extends javax.swing.JPanel {
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel15.setText("Sản phẩm bán chạy:");
 
-        jLabel5.setText("jLabel4");
+        lbl_tensp.setText("jLabel4");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -196,7 +242,7 @@ public class ThongKeJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
+                .addComponent(lbl_tensp)
                 .addContainerGap(141, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -205,7 +251,7 @@ public class ThongKeJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jLabel5))
+                    .addComponent(lbl_tensp))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -242,6 +288,11 @@ public class ThongKeJPanel extends javax.swing.JPanel {
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton3.setText("Lọc");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton4.setText("Xuất");
@@ -273,11 +324,11 @@ public class ThongKeJPanel extends javax.swing.JPanel {
                 .addContainerGap(240, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtdate1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
                 .addComponent(jLabel11)
                 .addGap(18, 18, 18)
-                .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtdate2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                 .addComponent(jButton3)
                 .addGap(36, 36, 36)
@@ -301,8 +352,8 @@ public class ThongKeJPanel extends javax.swing.JPanel {
                             .addComponent(jButton3)
                             .addComponent(jButton4))
                         .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jDateChooser3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtdate2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtdate1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(20, 20, 20)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -324,13 +375,16 @@ public class ThongKeJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        lbl_sanpham.setText(this.tongmathang(txtdate1.getDate(), txtdate2.getDate()) + "Mặt Hàng");
+         lbl_tongtien.setText(this.tongtien(txtdate1.getDate(), txtdate2.getDate()) + " VND");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.raven.chart.Chart chart;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
-    private com.toedter.calendar.JDateChooser jDateChooser3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -338,7 +392,6 @@ public class ThongKeJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -347,10 +400,13 @@ public class ThongKeJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbl_nam;
     private javax.swing.JLabel lbl_sanpham;
+    private javax.swing.JLabel lbl_tensp;
     private javax.swing.JLabel lbl_tonghoadon;
     private javax.swing.JLabel lbl_tongtien;
+    private javax.swing.JTable tblsanpham;
+    private com.toedter.calendar.JDateChooser txtdate1;
+    private com.toedter.calendar.JDateChooser txtdate2;
     // End of variables declaration//GEN-END:variables
 }

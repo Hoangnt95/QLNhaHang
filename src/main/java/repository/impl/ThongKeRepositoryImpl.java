@@ -5,7 +5,13 @@
 package repository.impl;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
+import net.bytebuddy.agent.builder.AgentBuilder;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -16,6 +22,7 @@ import util.HibernateUtil;
  * @author hieu
  */
 public class ThongKeRepositoryImpl {
+    
     public BigDecimal TongTien2() {
         BigDecimal a =  new BigDecimal(0);
         try ( Session session = HibernateUtil.getFACTORY().openSession()) {
@@ -63,8 +70,7 @@ public class ThongKeRepositoryImpl {
         try ( Session session = HibernateUtil.getFACTORY().openSession()) {
             String hql = "SELECT SUM (H.soLuong) \n"
                     + "From HoaDonChiTiet H \n"
-                    + " join HoaDon S on H.idHoaDon = S.id\n";
-                    //+ "where MONTH(HD.ThoiGianTao) = MONTH(GETDATE()) AND HD.TrangThai = 2 OR HD.TrangThai = 3";
+                    + " join HoaDon S on H.idHoaDon = S.id\n";      
             try {
                 Query<?> query = session.createQuery(hql);
                 session.beginTransaction();
@@ -78,17 +84,21 @@ public class ThongKeRepositoryImpl {
         }
         return a;
     }
-        public long TongTien5() {
+         
+      
+        public long TongTientheongay(Date date1, Date date2) {
         long a = 0;
         try ( Session session = HibernateUtil.getFACTORY().openSession()) {
             String hql = "SELECT SUM (H.soLuong) \n"
                     + "From HoaDonChiTiet H \n"
-                    + " join HoaDon S on H.idHoaDon = S.id\n";
-                    //+ "where MONTH(HD.ThoiGianTao) = MONTH(GETDATE()) AND HD.TrangThai = 2 OR HD.TrangThai = 3";
+                    + " join HoaDon S on H.idHoaDon = S.id\n"
+                    + "where CONVERT(date, S.ngayThanhToan) >= :date1 and CONVERT(date, S.ngayThanhToan) <= :date2";
             try {
                 Query<?> query = session.createQuery(hql);
-                session.beginTransaction();
-                session.getTransaction().commit();
+                query.setParameter("date1",date1);
+                query.setParameter("date2",date2);
+//                session.beginTransaction();
+//                session.getTransaction().commit();
                 a =  (long) query.uniqueResult();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Không có dữ liệu thống kê ");
@@ -98,4 +108,103 @@ public class ThongKeRepositoryImpl {
         }
         return a;
     }
+        
+        public BigDecimal Tongtien1theongay(Date date1, Date date2) {
+        BigDecimal a = new BigDecimal(0);
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+            String hql = "SELECT SUM (H.soLuong * H.DonGia) \n"
+                    + "From HoaDonChiTiet H \n"
+                    + " join HoaDon S on H.idHoaDon = S.id\n"
+                    + "where CONVERT(date, S.ngayThanhToan) >= :date1 and CONVERT(date, S.ngayThanhToan) <= :date2";
+            try {
+                Query<?> query = session.createQuery(hql);
+                query.setParameter("date1",date1);
+                query.setParameter("date2",date2);
+//                session.beginTransaction();
+//                session.getTransaction().commit();
+                a =  (BigDecimal) query.uniqueResult();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Không có dữ liệu thống kê ");
+            }
+        } catch (HibernateException e) {
+            throw new RuntimeException(e);
+        }
+        return a;
+    }
+        
+        
+        
+        public String sanphambanchay(int b) {
+        String a = "";
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+            String hql = "SELECT tenMon \n"
+                    + "From MonAn S\n"
+                    + "Inner join DonHangChiTiet H on S.id = H.idMonAn\n"
+                    + "Inner join HoaDonChiTiet HD on H.id = HD.idDonHangChiTiet\n"
+                    + "Inner join HoaDon HDD on HD.idHoaDon = HDD.id\n";
+                    //+ "where DAY(HDD.ngayTao) = DAY(GETDATE()) "
+//                    + "group by  S.maMon,S.tenMon\n"
+//                    + "order by COUNT(maMon) desc ";
+            try {
+                Query<?> query = session.createQuery(hql).setMaxResults(b);
+                session.beginTransaction();
+                session.getTransaction().commit();
+                a =   (String) query.uniqueResult();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Không có dữ liệu thống kê ");
+            }
+        } catch (HibernateException e) {
+            throw new RuntimeException(e);
+        }
+        return a ;
+    }
+        
+        public List<Object[]> thongke4(int top) {
+        List<Object[]> list = new ArrayList<>();
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+            String hql = " SELECT  S.id, S.maMon,S.tenMon,S.donGia\n " 
+                    + "From MonAn S\n"
+                    + "Inner join DonHangChiTiet H on S.id = H.idMonAn\n"
+                    + "Inner join HoaDonChiTiet HD on H.id = HD.idDonHangChiTiet\n"
+                    + "Inner join HoaDon HDD on HD.idHoaDon = HDD.id\n"
+                   // + "where DAY(HDD.ngayTao) = DAY(GETDATE()) "
+                    + "group by S.id, S.maMon,S.tenMon,S.donGia\n"
+                    + "order by maMon desc ";
+            Query<?> query = session.createQuery(hql).setMaxResults(top);
+            //query.setParameter("top", top);
+            session.beginTransaction();
+            session.getTransaction().commit();
+
+            list = (List<Object[]>) query.getResultList();
+        } catch (HibernateException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+        
+        
+       public List<Object[]> thongke5(int top) {
+        List<Object[]> list = new ArrayList<>();
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+            String hql = " SELECT  S.tenMon\n " 
+                    + "From MonAn S\n"
+                    + "Inner join DonHangChiTiet H on S.id = H.idMonAn\n"
+                    + "Inner join HoaDonChiTiet HD on H.id = HD.idDonHangChiTiet\n"
+                    + "Inner join HoaDon HDD on HD.idHoaDon = HDD.id\n"
+                   // + "where DAY(HDD.ngayTao) = DAY(GETDATE()) "
+                    + "group by S.id, S.maMon,S.tenMon\n"
+                    + "order by maMon desc ";
+            Query<?> query = session.createQuery(hql).setMaxResults(top);
+            //query.setParameter("top", top);
+            session.beginTransaction();
+            session.getTransaction().commit();
+
+            list = (List<Object[]>) query.getResultList();
+        } catch (HibernateException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+      
+      
 }
