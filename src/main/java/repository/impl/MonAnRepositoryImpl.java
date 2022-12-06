@@ -10,11 +10,13 @@ import custom.MonAnCustom;
 import entity.Ban;
 import entity.KhuyenMai;
 import entity.MonAn;
+import java.lang.annotation.Native;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.TypedQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import repository.ICommonRepository;
 import util.HibernateUtil;
@@ -47,7 +49,7 @@ public class MonAnRepositoryImpl implements ICommonRepository<MonAn, MonAnCustom
         List<MonAnCustom> list = new ArrayList<>();
         try ( Session session = HibernateUtil.getFACTORY().openSession()) {
             String hql = "Select new custom.MonAnCustom(a.id, a.maMon, "
-                    + "a.tenMon, a.donViTinh, a,hinhAnh, a.donGia, a.ghiChu, a.trangThai, a.idDanhMuc.id) FROM KhuyenMai a"
+                    + "a.tenMon, a.donViTinh, a,hinhAnh, a.donGia, a.ghiChu, a.trangThai, a.idDanhMuc.id) FROM MonAn a"
                     + " WHERE a.maMon LIKE CONCAT('%',:ma,'%')";
             TypedQuery<MonAnCustom> query = session.createQuery(hql, MonAnCustom.class);
             query.setParameter("ma", key);
@@ -124,4 +126,5 @@ public class MonAnRepositoryImpl implements ICommonRepository<MonAn, MonAnCustom
         }
         return td;
      }
+    
 }

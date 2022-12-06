@@ -1,5 +1,6 @@
 package view;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import util.UserHelper;
 
@@ -11,9 +12,9 @@ public class TrangChu extends javax.swing.JFrame {
         initComponents();
         main = this;
         show(new ThongKeJPanel());
-//        lblTaiKhoan.setText(UserHelper.getUser.getMaNV());
-//        lblVaiTro.setText(UserHelper.getUser.VaiTroToString());
-
+        lblTaiKhoan.setText(UserHelper.getUser.getMaNV());
+        lblVaiTro.setText(UserHelper.getUser.VaiTroToString());
+        checkRole(UserHelper.getUser.isVaiTro());
     }
 
     public void show(JPanel a) {
@@ -22,13 +23,31 @@ public class TrangChu extends javax.swing.JFrame {
         lbl_hihi.validate();
     }
 
+    public void checkRole(boolean vaiTro) {
+        if (vaiTro == false) {
+            btn_ban.setEnabled(false);
+            btn_hoadon.setEnabled(false);
+            btn_khuyenmai.setEnabled(false);
+            btn_nhanvien.setEnabled(false);
+            btn_thongke.setEnabled(false);
+            btn_thucdon.setEnabled(false);
+        }else{
+            btn_ban.setEnabled(true);
+            btn_hoadon.setEnabled(true);
+            btn_khuyenmai.setEnabled(true);
+            btn_nhanvien.setEnabled(true);
+            btn_thongke.setEnabled(true);
+            btn_thucdon.setEnabled(true);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton14 = new javax.swing.JButton();
+        btnDangXuat = new javax.swing.JButton();
         btn_hoadon = new javax.swing.JButton();
         btn_thucdon = new javax.swing.JButton();
         btn_khuyenmai = new javax.swing.JButton();
@@ -51,14 +70,14 @@ public class TrangChu extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(153, 153, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Menu"));
 
-        jButton14.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jButton14.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\Khanh\\QLNhaHang\\image\\iconApp\\Dang xuat.png")); // NOI18N
-        jButton14.setText("Đăng Xuất");
-        jButton14.setBorder(null);
-        jButton14.setBorderPainted(false);
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
+        btnDangXuat.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnDangXuat.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\Khanh\\QLNhaHang\\image\\iconApp\\Dang xuat.png")); // NOI18N
+        btnDangXuat.setText("Đăng Xuất");
+        btnDangXuat.setBorder(null);
+        btnDangXuat.setBorderPainted(false);
+        btnDangXuat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
+                btnDangXuatActionPerformed(evt);
             }
         });
 
@@ -150,7 +169,7 @@ public class TrangChu extends javax.swing.JFrame {
             .addComponent(btn_ban, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_hoadon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_thongke, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnDangXuat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,7 +189,7 @@ public class TrangChu extends javax.swing.JFrame {
                 .addGap(50, 50, 50)
                 .addComponent(btn_thongke, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
-                .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
         );
 
@@ -243,9 +262,10 @@ public class TrangChu extends javax.swing.JFrame {
         show(new ThucDonpanel());
     }//GEN-LAST:event_btn_thucdonActionPerformed
 
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jButton14ActionPerformed
+    private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
+        this.dispose();
+        new DangNhap().setVisible(true);
+    }//GEN-LAST:event_btnDangXuatActionPerformed
 
     private void btn_khuyenmaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_khuyenmaiActionPerformed
         show(new KhuyenMaiJpanel());
@@ -299,12 +319,13 @@ public class TrangChu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TrangChu().setVisible(true);
+                new TrangChu().setVisible(false);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDangXuat;
     private javax.swing.JButton btn_ban;
     private javax.swing.JButton btn_donhang;
     private javax.swing.JButton btn_hoadon;
@@ -312,7 +333,6 @@ public class TrangChu extends javax.swing.JFrame {
     private javax.swing.JButton btn_nhanvien;
     private javax.swing.JButton btn_thongke;
     private javax.swing.JButton btn_thucdon;
-    private javax.swing.JButton jButton14;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -70,20 +70,17 @@ public class NhanVienServiceImpl implements ICommonService<NhanVienCustom> {
         return mess;
     }
 
-    public NhanVienCustom checkLogin(String user, String pass) {
-        NhanVienCustom nhanVien = this.repo.getNhanVien(user, pass);
-        if (nhanVien == null) {
-            nhanVien = null;
-        }
-        return nhanVien;
+    public List<NhanVienCustom> getByUser(String user) {
+        return this.repo.getNhanVienByUser(user);
+    }
+    
+
+    public NhanVienCustom getByEmail(String email) {
+        return this.repo.getNhanVienByEmail(email);
     }
 
-    public NhanVienCustom getNhanVienByEmail(String user, String email) {
-        NhanVienCustom nhanVien = this.repo.getNhanVienByEmail(user, email);
-        if (nhanVien == null) {
-            nhanVien = null;
-        }
-        return nhanVien;
+    public NhanVienCustom getByPass(String pass) {
+        return this.repo.getNhanVienByPassword(pass);
     }
 
 }

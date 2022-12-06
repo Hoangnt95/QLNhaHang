@@ -56,7 +56,7 @@ public class GenDb {
         //Bàn
         Ban ban1 = new Ban();
         ban1.setMaBan("BA01");
-        ban1.setTrangThai(1);
+        ban1.setTrangThai(0);
         ban1.setSoLuongChoNgoi(6);
         ban1.setIdKhuVuc(kv2);
         session.save(ban1);

@@ -1,6 +1,9 @@
 package view;
 
 import custom.NhanVienCustom;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import service.impl.NhanVienServiceImpl;
 import util.UserHelper;
@@ -8,9 +11,13 @@ import util.UserHelper;
 public class DangNhap extends javax.swing.JFrame {
 
     private NhanVienServiceImpl service;
+    private boolean isHidden = true;
+
     public DangNhap() {
         initComponents();
         service = new NhanVienServiceImpl();
+        ImageIcon icon = new ImageIcon("C:\\Users\\admin\\Desktop\\Khanh\\QLNhaHang\\src\\main\\java\\image\\iconApp\\hide.png");
+        btnHide.setIcon(icon);
     }
 
     @SuppressWarnings("unchecked")
@@ -21,11 +28,11 @@ public class DangNhap extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtTaiKhoan = new javax.swing.JTextField();
-        txtMatKhau = new javax.swing.JTextField();
         btnDangNhap = new javax.swing.JButton();
         btnThoat = new javax.swing.JButton();
         btnQuenMK = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnHide = new javax.swing.JButton();
+        pwPass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 255));
@@ -60,7 +67,11 @@ public class DangNhap extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\Khanh\\QLNhaHang\\image\\iconApp\\hide.png")); // NOI18N
+        btnHide.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHideActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -82,15 +93,16 @@ public class DangNhap extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGap(15, 15, 15)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtMatKhau, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
-                                        .addGap(0, 0, 0)
-                                        .addComponent(jButton1))
-                                    .addComponent(txtTaiKhoan)))
+                                        .addComponent(pwPass, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnHide)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
                             .addComponent(btnQuenMK))))
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,13 +113,13 @@ public class DangNhap extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(45, 45, 45)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)))
-                .addGap(40, 40, 40)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel3)
+                        .addComponent(pwPass, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnHide))
+                .addGap(53, 53, 53)
                 .addComponent(btnQuenMK)
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -122,22 +134,29 @@ public class DangNhap extends javax.swing.JFrame {
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
         // TODO add your handling code here:
+        List<NhanVienCustom> listsNhanVien = new ArrayList<>();
         String taiKhoan = txtTaiKhoan.getText().trim();
-        String matKhau = txtMatKhau.getText().trim();
+        String matKhau = String.valueOf(pwPass.getPassword());
         if (taiKhoan.isEmpty() || matKhau.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Tai khoan va Mat khau khong duoc bo trong");
             return;
         }
-        NhanVienCustom nhanVien = service.checkLogin(taiKhoan, matKhau);
+        nhanVien = service.getByUser(taiKhoan);
+        if (nhanVien == null) {
+            JOptionPane.showMessageDialog(this, "Ten tai khoan khong dung");
+            return;
+        }
+
         if (nhanVien.getTrangThai() == 2) {
             JOptionPane.showMessageDialog(this, "Tai khoan nhan vien da nghi viec");
             return;
         }
-        if (nhanVien != null) {
-            UserHelper.getUser = nhanVien;
-            JOptionPane.showMessageDialog(this, "Dang nhap thanh cong !");
-            new TrangChu().setVisible(true);
-        }
+//        if (nhanVien != null) {
+//            UserHelper.getUser = nhanVien;
+//            JOptionPane.showMessageDialog(this, "Dang nhap thanh cong !");
+//            new TrangChu().setVisible(true);
+//            this.dispose();
+//        }
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     private void btnQuenMKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuenMKActionPerformed
@@ -145,6 +164,21 @@ public class DangNhap extends javax.swing.JFrame {
         UserHelper.ma = txtTaiKhoan.getText().trim();
         new FrameQMK().setVisible(true);
     }//GEN-LAST:event_btnQuenMKActionPerformed
+
+    private void btnHideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHideActionPerformed
+        // TODO add your handling code here:
+        if (this.isHidden) {
+            pwPass.setEchoChar((char) 0);
+            this.isHidden = false;
+            ImageIcon icon = new ImageIcon("C:\\Users\\admin\\Desktop\\Khanh\\QLNhaHang\\src\\main\\java\\image\\iconApp\\hide.png");
+            btnHide.setIcon(icon);
+        } else {
+            pwPass.setEchoChar('*');
+            this.isHidden = true;
+            ImageIcon icon = new ImageIcon("C:\\Users\\admin\\Desktop\\Khanh\\QLNhaHang\\src\\main\\java\\image\\iconApp\\view.png");
+            btnHide.setIcon(icon);
+        }
+    }//GEN-LAST:event_btnHideActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,13 +218,13 @@ public class DangNhap extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangNhap;
+    private javax.swing.JButton btnHide;
     private javax.swing.JButton btnQuenMK;
     private javax.swing.JButton btnThoat;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField txtMatKhau;
+    private javax.swing.JPasswordField pwPass;
     private javax.swing.JTextField txtTaiKhoan;
     // End of variables declaration//GEN-END:variables
 }

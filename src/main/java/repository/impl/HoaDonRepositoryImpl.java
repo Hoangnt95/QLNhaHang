@@ -7,7 +7,10 @@ package repository.impl;
 import custom.HDBanhang;
 import custom.HoaDonCustom;
 import entity.HoaDon;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.TypedQuery;
 import org.hibernate.Session;
@@ -96,29 +99,31 @@ public class HoaDonRepositoryImpl implements ICommonRepository<HoaDon, HoaDonCus
         return list;
     }
 
-     public List<HoaDon> getHDByMaDH(String madh){
-          List<HoaDon> lists = null;
+    public List<HoaDon> getHDByMaDH(String madh) {
+        List<HoaDon> lists = null;
         try ( Session session = HibernateUtil.getFACTORY().openSession()) {
             String hql = "SELECT m FROM HoaDon m where m.idDonHang.maDH =:madh and m.trangThai =: tt";
-             Query query = session.createQuery(hql);
-             query.setParameter("madh", madh);
-             query.setParameter("tt", 0);
+            Query query = session.createQuery(hql);
+            query.setParameter("madh", madh);
+            query.setParameter("tt", 0);
             lists = query.getResultList();
         }
         return lists;
-     }
-      public HoaDon getIDByMaHD(String mahd){
-          HoaDon hd = null;
-          try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+    }
+
+    public HoaDon getIDByMaHD(String mahd) {
+        HoaDon hd = null;
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
             String hql = "SELECT m FROM HoaDon m where m.maHd =: mahd ";
-             TypedQuery<HoaDon> query = session.createQuery(hql, HoaDon.class);
+            TypedQuery<HoaDon> query = session.createQuery(hql, HoaDon.class);
             query.setParameter("mahd", mahd);
-           
-            hd =  query.getSingleResult();
+
+            hd = query.getSingleResult();
         }
-         return hd;
-      }
-       public boolean UpdateTrangThaiban(HoaDon hd) {
+        return hd;
+    }
+
+    public boolean UpdateTrangThaiban(HoaDon hd) {
         try {
             Session session = HibernateUtil.getFACTORY().openSession();
             Transaction tran = session.beginTransaction();
@@ -136,15 +141,17 @@ public class HoaDonRepositoryImpl implements ICommonRepository<HoaDon, HoaDonCus
             return false;
         }
     }
-       public HoaDon getByMaDH(String madh){
-         HoaDon hd = null;
-          try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+
+    public HoaDon getByMaDH(String madh) {
+        HoaDon hd = null;
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
             String hql = "SELECT m FROM HoaDon m where m.idDonHang.maDH =:madh ";
-             TypedQuery<HoaDon> query = session.createQuery(hql, HoaDon.class);
+            TypedQuery<HoaDon> query = session.createQuery(hql, HoaDon.class);
             query.setParameter("madh", madh);
-            
-            hd =  query.getSingleResult();
+
+            hd = query.getSingleResult();
         }
-         return hd;
-     }
+        return hd;
+    }
+
 }
