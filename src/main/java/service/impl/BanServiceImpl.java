@@ -113,6 +113,8 @@ public class BanServiceImpl implements ICommonService<BanCustom> {
             return "Số lượng trống";
         } else if (!number.matches(matches)){
             return "Số lượng sai định dạng";
+        } else if (Integer.parseInt(number) <= 0){
+            return "Số lượng phải lớn hơn 0";
         }
         return "OK";
     }

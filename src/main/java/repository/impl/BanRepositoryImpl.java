@@ -167,4 +167,13 @@ public class BanRepositoryImpl implements ICommonRepository<Ban, BanCustom> {
 
         return result;
     }
+    
+    public static void main(String[] args) {
+        BanRepositoryImpl brps = new BanRepositoryImpl();
+        List<Ban> listBan = brps.getAll();
+        List<Ban> listBanTam = new ArrayList<>();
+        for (int i = 0; i < 10;i++){
+            listBanTam.add(listBan.get(i));
+        }
+    }
 }

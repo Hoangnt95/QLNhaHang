@@ -3,6 +3,7 @@ package view;
 import custom.BanCustom;
 import custom.KhuVucCustom;
 import entity.Ban;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -15,9 +16,14 @@ public class BanJPanel extends javax.swing.JPanel {
     BanServiceImpl banser;
     KhuVucServiceImpl khuvucser;
     List<Ban> listBan;
+    List<Ban> listBanTam;
     List<KhuVucCustom> listKhuVucCustom;
     DefaultTableModel banModel;
     DefaultComboBoxModel modelKhuVuc;
+    int indStart = 0;
+    int indEnd = 9;
+    int soTrang = 1;
+    int tongSoTrang = 0;
 
     public BanJPanel() {
         initComponents();
@@ -25,10 +31,30 @@ public class BanJPanel extends javax.swing.JPanel {
         khuvucser = new KhuVucServiceImpl();
         listBan = banser.getAll();
         listKhuVucCustom = khuvucser.findByKey("");
-        loadTable(listBan);
+        loadPhanTrang(listBan);
         loadCbKhuVuc(listKhuVucCustom);
     }
 
+    private void loadPhanTrang(List<Ban> list) {
+        listBanTam = new ArrayList<>();
+        for (int i = indStart; i <= indEnd; i++) {
+            try {
+                listBanTam.add(list.get(i));
+            } catch (Exception e) {
+                break;
+            }
+        }
+        loadTable(listBanTam);
+    }
+
+    private void loadSoTrang(){
+        tongSoTrang = listBan.size() / 10;
+        if (listBan.size() - tongSoTrang * 10 != 0) {
+            tongSoTrang += 1;
+        }
+        lblTrang.setText(soTrang + "/" + tongSoTrang);
+        tblBan.setModel(banModel);
+    }
     private void loadTable(List<Ban> list) {
         banModel = new DefaultTableModel();
         banModel.setColumnIdentifiers(new String[]{"ID", "Mã bàn", "Số lượng chỗ ngồi", "Trạng thái", "Vị trí"});
@@ -37,7 +63,7 @@ public class BanJPanel extends javax.swing.JPanel {
                 o.getTrangThai() == 0 ? "Còn hoạt động" : "Không còn hoạt động",
                 o.getIdKhuVuc().getTenKV()});
         }
-        tblBan.setModel(banModel);
+        loadSoTrang();
     }
 
     private void loadCbKhuVuc(List<KhuVucCustom> list) {
@@ -49,7 +75,7 @@ public class BanJPanel extends javax.swing.JPanel {
     }
 
     private void mouseClick(int index) {
-        Ban ban = listBan.get(index);
+        Ban ban = listBanTam.get(index);
         int idKhuVuc = ban.getIdKhuVuc().getId();
         txtMaBan.setText(ban.getMaBan());
         txtSoLuong.setText(String.valueOf(ban.getSoLuongChoNgoi()));
@@ -68,8 +94,8 @@ public class BanJPanel extends javax.swing.JPanel {
         String soLuong = txtSoLuong.getText().trim();
         if (banser.checkNumber(soLuong).equals("OK")) {
             ban.setSoLuongChoNgoi(Integer.parseInt(soLuong));
-        } 
-        
+        }
+
         int trangThai = cbbTrangThai.getSelectedIndex();
         ban.setTrangThai(trangThai);
 
@@ -101,10 +127,11 @@ public class BanJPanel extends javax.swing.JPanel {
         tblBan = new javax.swing.JTable();
         txtTimKiem = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        btnTrangCu = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
+        lblTrang = new javax.swing.JLabel();
+        btnNext = new javax.swing.JButton();
+        btnTrangMoi = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
         setForeground(new java.awt.Color(153, 153, 255));
@@ -227,13 +254,25 @@ public class BanJPanel extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("Tìm kiếm");
 
-        jButton8.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\QLNhaHang\\image\\iconApp\\previous.png")); // NOI18N
+        btnTrangCu.setText("<<");
+        btnTrangCu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTrangCuActionPerformed(evt);
+            }
+        });
 
-        jButton9.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\QLNhaHang\\image\\iconApp\\rewind-button.png")); // NOI18N
+        btnBack.setText("<");
 
-        jButton10.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\QLNhaHang\\image\\iconApp\\forward-button.png")); // NOI18N
+        lblTrang.setText("1/1");
 
-        jButton11.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\QLNhaHang\\image\\iconApp\\next.png")); // NOI18N
+        btnNext.setText(">");
+
+        btnTrangMoi.setText(">>");
+        btnTrangMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTrangMoiActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -242,23 +281,25 @@ public class BanJPanel extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
                         .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton8)
-                .addGap(67, 67, 67)
-                .addComponent(jButton9)
-                .addGap(75, 75, 75)
-                .addComponent(jButton10)
-                .addGap(73, 73, 73)
-                .addComponent(jButton11)
-                .addGap(200, 200, 200))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(134, 134, 134)
+                .addComponent(btnTrangCu)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBack)
+                .addGap(18, 18, 18)
+                .addComponent(lblTrang)
+                .addGap(18, 18, 18)
+                .addComponent(btnNext)
+                .addGap(18, 18, 18)
+                .addComponent(btnTrangMoi)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,13 +310,14 @@ public class BanJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton8)
-                    .addComponent(jButton9)
-                    .addComponent(jButton10, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton11, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(40, 40, 40))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnTrangCu)
+                    .addComponent(btnBack)
+                    .addComponent(lblTrang)
+                    .addComponent(btnNext)
+                    .addComponent(btnTrangMoi))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -349,7 +391,7 @@ public class BanJPanel extends javax.swing.JPanel {
         BanCustom ban = this.getData();
         String result = banser.checkInfor(ban, null);
         if (result.equals("OK")) {
-            if (banser.checkNumber(txtSoLuong.getText()).equals("OK")){
+            if (banser.checkNumber(txtSoLuong.getText()).equals("OK")) {
                 JOptionPane.showMessageDialog(this, banser.addOrUpdate(ban));
             } else {
                 JOptionPane.showMessageDialog(this, banser.checkNumber(txtSoLuong.getText()));
@@ -359,21 +401,20 @@ public class BanJPanel extends javax.swing.JPanel {
         }
 
         listBan = banser.getAll();
-        loadTable(listBan);
+        loadPhanTrang(listBan);
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
         int index = tblBan.getSelectedRow();
-        listBan = banser.getAll();
-        Ban banIndex = listBan.get(index);
+        Ban banIndex = listBanTam.get(index);
         BanCustom ban = this.getData();
         BanCustom ban2 = this.getData();
         ban.setId(banIndex.getId());
         ban.setMaBan(banIndex.getMaBan());
         String result = banser.checkInfor(ban, ban2);
         if (result.equals("OK")) {
-            if (banser.checkNumber(txtSoLuong.getText()).equals("OK")){
+            if (banser.checkNumber(txtSoLuong.getText()).equals("OK")) {
                 ban2.setId(banIndex.getId());
                 JOptionPane.showMessageDialog(this, banser.addOrUpdate(ban2));
             } else {
@@ -383,20 +424,38 @@ public class BanJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, result);
         }
         listBan = banser.getAll();
-        loadTable(listBan);
+        loadPhanTrang(listBan);
     }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnTrangMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrangMoiActionPerformed
+        if (soTrang < tongSoTrang) {
+            indStart += 10;
+            indEnd += 10;
+            soTrang += 1;
+        }
+        loadPhanTrang(listBan);
+    }//GEN-LAST:event_btnTrangMoiActionPerformed
+
+    private void btnTrangCuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrangCuActionPerformed
+        if (soTrang > 1) {
+            indStart -= 10;
+            indEnd -= 10;
+            soTrang -= 1;
+        }
+        loadPhanTrang(listBan);
+    }//GEN-LAST:event_btnTrangCuActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnNext;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnTrangCu;
+    private javax.swing.JButton btnTrangMoi;
     private javax.swing.JComboBox<String> cbbKhuVuc;
     private javax.swing.JComboBox<String> cbbTrangThai;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
@@ -407,6 +466,7 @@ public class BanJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblTrang;
     private javax.swing.JTable tblBan;
     private javax.swing.JTextField txtMaBan;
     private javax.swing.JTextField txtSoLuong;
