@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import service.ICommonService;
 import service.impl.DanhMucService;
 import service.impl.MonAnServiceImpl;
+import util.Validate;
 import util.XImage;
 
 public class ThucDonpanel extends javax.swing.JPanel {
@@ -21,11 +22,13 @@ public class ThucDonpanel extends javax.swing.JPanel {
     MonAnServiceImpl monanservice;
     DanhMucService danhmucservice;
     DefaultTableModel defaultTableModel;
+    private Validate valid;
 
     public ThucDonpanel() {
         initComponents();
         monanservice = new MonAnServiceImpl();
         danhmucservice = new DanhMucService();
+        valid = new Validate();
         cbxdanhmuc();
         cbxTrangThai();
         Loadtable(monanservice.getAll());
@@ -404,7 +407,25 @@ public class ThucDonpanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnchonanhActionPerformed
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
-
+          if (valid.checkNullString(txtmamon.getText()) || valid.checkNullString(txttenmon.getText()) 
+                  ||valid.checkNullString(txtdongia.getText())||valid.checkNullString(txtdonvitinh.getText()))
+                  {
+            JOptionPane.showMessageDialog(this, "Không để trống");
+            return;
+        }
+          
+          if (!valid.checksoThuc(txtdongia.getText())) {
+             JOptionPane.showMessageDialog(this, "Phải là số");
+            return;
+        }
+          if (valid.chekcKhoangTrang(txtdongia.getText())) {
+             JOptionPane.showMessageDialog(this, "Không được chứa khoảng trắng");
+            return;
+        }
+          if (txtdongia.getText().equals("0") ) {
+            JOptionPane.showMessageDialog(this, "Lớn hơn 0");
+            return;
+        }
         MonAnCustom monAn = this.getdata();
         JOptionPane.showMessageDialog(this, monanservice.addOrUpdate(monAn));
         Loadtable(monanservice.getAll());
@@ -412,6 +433,25 @@ public class ThucDonpanel extends javax.swing.JPanel {
 
     private void btnsuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsuaActionPerformed
         // TODO add your handling code here:
+         if (valid.checkNullString(txtmamon.getText()) || valid.checkNullString(txttenmon.getText()) 
+                  ||valid.checkNullString(txtdongia.getText())||valid.checkNullString(txtdonvitinh.getText()))
+                  {
+            JOptionPane.showMessageDialog(this, "Không để trống");
+            return;
+        }
+          
+          if (!valid.checksoThuc(txtdongia.getText())) {
+             JOptionPane.showMessageDialog(this, "Phải là số");
+            return;
+        }
+          if (valid.chekcKhoangTrang(txtdongia.getText())) {
+             JOptionPane.showMessageDialog(this, "Không được chứa khoảng trắng");
+            return;
+        }
+          if (txtdongia.getText().equals("0") ) {
+            JOptionPane.showMessageDialog(this, "Lớn hơn 0");
+            return;
+        }
         int index = tblthucdon.getSelectedRow();
         int id = Integer.parseInt(tblthucdon.getValueAt(index, 0).toString());
         MonAnCustom monAn = this.getdata();

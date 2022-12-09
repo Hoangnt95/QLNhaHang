@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import service.ICommonService;
 import service.impl.DanhMucService;
+import util.Validate;
 
 public class DanhMucJdialog extends javax.swing.JDialog {
 
@@ -14,12 +15,14 @@ public class DanhMucJdialog extends javax.swing.JDialog {
     private ICommonService<DanhMucCustom> _ICommonService;
     private DanhMucCustom _DanhMucCustom;
     private DefaultTableModel _DefaultTableModel;
+    private Validate valid;
 
     public DanhMucJdialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         _DanhMucService = new DanhMucService();
         _ICommonService = new DanhMucService();
+        valid = new Validate();
         loadDataToTable(_DanhMucService.findByKey(""));
     }
 
@@ -235,7 +238,14 @@ public class DanhMucJdialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-
+        if (valid.checkNullString(txtMaLoai.getText()) || valid.checkNullString(txtTenLoai.getText())   ) {
+            JOptionPane.showMessageDialog(this, "Không để trống");
+            return;
+        }
+        if(valid.checkKyTuCoDau(txtTenLoai.getText())){
+        JOptionPane.showMessageDialog(this, "nhập phải có dấu");
+            return;
+        }
         DanhMucCustom spMoi = getData();
         JOptionPane.showMessageDialog(this, _DanhMucService.addOrUpdate(spMoi));
         List<DanhMucCustom> ds = _DanhMucService.findByKey("");
@@ -243,7 +253,14 @@ public class DanhMucJdialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-
+         if (valid.checkNullString(txtMaLoai.getText()) || valid.checkNullString(txtTenLoai.getText())   ) {
+            JOptionPane.showMessageDialog(this, "Không để trống");
+            return;
+        }
+         if(valid.checkKyTuCoDau(txtTenLoai.getText())){
+        JOptionPane.showMessageDialog(this, "nhập phải có dấu");
+            return;
+        }
         int index = tblDanhMuc.getSelectedRow();
         DanhMucCustom spMoi = getData();
         int id = Integer.parseInt(tblDanhMuc.getValueAt(index, 0).toString());
