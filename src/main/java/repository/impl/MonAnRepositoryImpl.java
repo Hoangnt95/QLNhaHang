@@ -11,7 +11,10 @@ import entity.Ban;
 import entity.KhuyenMai;
 import entity.MonAn;
 import java.lang.annotation.Native;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.TypedQuery;
 import org.hibernate.Session;
@@ -93,38 +96,77 @@ public class MonAnRepositoryImpl implements ICommonRepository<MonAn, MonAnCustom
         }
         return td;
     }
+
     public List<MonAn> GetThucDon(String key) {
-      List<MonAn> result = null;
-      try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+        List<MonAn> result = null;
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
             String hql = "select a from MonAn a where a.danhMuc.maLoai = : ma";
             Query query = session.createQuery(hql);
             query.setParameter("ma", key);
             result = query.getResultList();
         }
-      
+
         return result;
-        }
-    public List<MonAn> TimKiem(String key){
+    }
+
+    public List<MonAn> TimKiem(String key) {
         List<MonAn> result = null;
         try ( Session session = HibernateUtil.getFACTORY().openSession()) {
             String hql = "SELECT a FROM MonAn a WHERE a.tenMon like concat('%',:tenmon,'%')";
             TypedQuery<MonAn> query = session.createQuery(hql, MonAn.class);
             query.setParameter("tenmon", key);
-            
-            result= query.getResultList();
+
+            result = query.getResultList();
         }
         return result;
     }
-    public MonAn getIdBytenMon(String key){
-         MonAn td = null;
+
+    public MonAn getIdBytenMon(String key) {
+        MonAn td = new MonAn();
         try ( Session session = HibernateUtil.getFACTORY().openSession()) {
             String hql = "SELECT a FROM MonAn a WHERE a.tenMon = : ten";
             TypedQuery<MonAn> query = session.createQuery(hql, MonAn.class);
             query.setParameter("ten", key);
-            
-            td=  query.getSingleResult();
+
+            td = query.getSingleResult();
         }
         return td;
-     }
-    
+    }
+
+    public List<MonAnCustom> getListMonAnSort() {
+        List<MonAnCustom> lists = new ArrayList<>();
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+            String hql = "SELECT new custom.MonAnCustom(a.maMon, a.tenMon, a.donViTinh, a.donGia)"
+                    + " FROM MonAn a LEFT JOIN DonHangChiTiet dhct "
+                    + "ON dhct.idMonAn.id = a.id LEFT JOIN HoaDonChiTiet hdct ON"
+                    + " hdct.idDonHangChiTiet.id = dhct.id "
+                    + "GROUP BY a.maMon, a.tenMon, a.donViTinh, a.donGia "
+                    + "ORDER BY(a.maMon) DESC";
+            Query query = session.createQuery(hql);
+            lists = query.getResultList();
+        }
+        return lists;
+    }
+
+    public List<MonAnCustom> getListMonAnSortByDay(Date date1, Date date2) {
+        List<MonAnCustom> lists = new ArrayList<>();
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+            String hql = "select m.maMon from MonAn m join DonHangChiTiet dhct "
+                    + "ON m.id = dhct.idMonAn.id join HoaDonChiTiet hdct ON hdct.idDonHangChiTiet.id = dhct.id\n"
+                    + "join HoaDon hd ON hd.id = hdct.idHoaDon.id where hd.ngayTao between :date1 and :date2";
+            Query query = session.createQuery(hql);
+            query.setParameter("date1", date1);
+            query.setParameter("date2", date2);
+            lists = query.getResultList();
+        }
+        return lists;
+    }
+
+    public static void main(String[] args) throws ParseException {
+        String date1 = "2022-11-10";
+        String date2 = "2022-11-11";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        List<MonAnCustom> lists = new MonAnRepositoryImpl().getListMonAnSortByDay(sdf.parse(date1), sdf.parse(date2));
+        System.out.println(lists.size());
+    }
 }

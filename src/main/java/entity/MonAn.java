@@ -13,13 +13,14 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "MonAn")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
+@ToString
 public class MonAn implements Serializable{
     
     @Id

@@ -141,16 +141,16 @@ public class DangNhap extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tai khoan va Mat khau khong duoc bo trong");
             return;
         }
-        nhanVien = service.getByUser(taiKhoan);
-        if (nhanVien == null) {
-            JOptionPane.showMessageDialog(this, "Ten tai khoan khong dung");
-            return;
-        }
-
-        if (nhanVien.getTrangThai() == 2) {
-            JOptionPane.showMessageDialog(this, "Tai khoan nhan vien da nghi viec");
-            return;
-        }
+//        nhanVien = service.getByUser(taiKhoan);
+//        if (nhanVien == null) {
+//            JOptionPane.showMessageDialog(this, "Ten tai khoan khong dung");
+//            return;
+//        }
+//
+//        if (nhanVien.getTrangThai() == 2) {
+//            JOptionPane.showMessageDialog(this, "Tai khoan nhan vien da nghi viec");
+//            return;
+//        }
 //        if (nhanVien != null) {
 //            UserHelper.getUser = nhanVien;
 //            JOptionPane.showMessageDialog(this, "Dang nhap thanh cong !");

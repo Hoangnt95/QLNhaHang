@@ -10,7 +10,9 @@ import custom.HoaDonChiTietCustom;
 import custom.HoaDonCustom;
 import entity.HoaDon;
 import entity.HoaDonChiTiet;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -22,7 +24,7 @@ import util.HibernateUtil;
  *
  * @author admin
  */
-public class HoaDonChiTietRepositoryImpl implements ICommonRepository<HoaDonChiTiet, HoaDonChiTietCustom>{
+public class HoaDonChiTietRepositoryImpl implements ICommonRepository<HoaDonChiTiet, HoaDonChiTietCustom> {
 
     @Override
     public boolean addOrUpdate(HoaDonChiTiet t) {
@@ -56,8 +58,8 @@ public class HoaDonChiTietRepositoryImpl implements ICommonRepository<HoaDonChiT
 
         return result;
     }
-    
-    public List<HoaDonChiTiet> getAll(){
+
+    public List<HoaDonChiTiet> getAll() {
         List<HoaDonChiTiet> lists = new ArrayList<>();
         try ( Session session = HibernateUtil.getFACTORY().openSession();) {
             javax.persistence.Query query = session.createQuery("From HoaDonChiTiet");
@@ -80,7 +82,7 @@ public class HoaDonChiTietRepositoryImpl implements ICommonRepository<HoaDonChiT
         }
         return hoaDonChiTiet;
     }
-    
+
     public List<HDCTBanHang> getHDCTByHD(String key) {
         List<HDCTBanHang> result = null;
         String hql;
@@ -92,31 +94,32 @@ public class HoaDonChiTietRepositoryImpl implements ICommonRepository<HoaDonChiT
             Query query = session.createQuery(hql);
             query.setParameter("ma", key);
             result = query.getResultList();
-            
+
         }
 
         return result;
     }
-     public List<HDCTBanHangCustom> getDSHDCT(int idhd) {
-         List<HDCTBanHangCustom> list = new ArrayList<>();
-        try (Session session = HibernateUtil.getFACTORY().openSession()){           
-           
+
+    public List<HDCTBanHangCustom> getDSHDCT(int idhd) {
+        List<HDCTBanHangCustom> list = new ArrayList<>();
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
             String hql = "SELECT new custom.HDCTBanHangCustom"
                     + "(a.id,a.idDonHangChiTiet.idMonAn.tenMon, a.soLuong, a.DonGia) "
                     + " FROM HoaDonChiTiet a WHERE a.idHoaDon.id =: idhd";
             Query query = session.createQuery(hql);
             query.setParameter("idhd", idhd);
             list = query.getResultList();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
-     }
-     public boolean UpdateChiTiet(HoaDonChiTiet dhct){
-         try {     
-             Session session = HibernateUtil.getFACTORY().openSession(); 
-             Transaction tran = session.beginTransaction();
+    }
+
+    public boolean UpdateChiTiet(HoaDonChiTiet dhct) {
+        try {
+            Session session = HibernateUtil.getFACTORY().openSession();
+            Transaction tran = session.beginTransaction();
             String hql = "UPDATE HoaDonChiTiet SET soLuong = :soLuong,DonGia =:donGia  WHERE id = :id";
             Query query = session.createQuery(hql);
             query.setParameter("soLuong", dhct.getSoLuong());
@@ -132,4 +135,57 @@ public class HoaDonChiTietRepositoryImpl implements ICommonRepository<HoaDonChiT
             return false;
         }
     }
+
+    public BigDecimal getTongTien() {
+        BigDecimal tongTien = new BigDecimal(0);
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+            String hql = "Select sum(a.soLuong * a.DonGia) FROM HoaDonChiTiet a"
+                    + " LEFT JOIN HoaDon b"
+                    + " ON a.idHoaDon.id = b.id"
+                    + " WHERE b.trangThai = 0";
+            Query query = session.createQuery(hql);
+            tongTien = (BigDecimal) query.getSingleResult();
+        }
+        return tongTien;
+    }
+
+    public long getTongSPDaBan() {
+        long tongSPDaBan = 0;
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+            String hql = "SELECT sum(m.soLuong) FROM HoaDonChiTiet m";
+            Query query = session.createQuery(hql);
+            tongSPDaBan = (long) query.getSingleResult();
+        }
+        return tongSPDaBan;
+    }
+
+    public BigDecimal getTongTienByDay(Date date1, Date date2) {
+        BigDecimal tongTien = new BigDecimal(0);
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+            String hql = "Select sum(a.soLuong * a.DonGia) FROM HoaDonChiTiet a"
+                    + " LEFT JOIN HoaDon b"
+                    + " ON a.idHoaDon.id = b.id"
+                    + " WHERE b.trangThai = 0 AND b.ngayTao between :date1 AND :date2";
+            Query query = session.createQuery(hql);
+            query.setParameter("date1", date1);
+            query.setParameter("date2", date2);
+            tongTien = (BigDecimal) query.getSingleResult();
+        }
+        return tongTien;
+    }
+
+    public long getTongSPDaBanByDay(Date date1, Date date2) {
+        long tongSPDaBan = 0;
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+            String hql = "SELECT sum(m.soLuong) FROM HoaDonChiTiet m LEFT JOIN "
+                    + " HoaDon b ON m.idHoaDon.id = b.id WHERE b.trangThai = 0 "
+                    + " AND b.ngayTao between :date1 AND :date2";
+            Query query = session.createQuery(hql);
+            query.setParameter("date1", date1);
+            query.setParameter("date2", date2);
+            tongSPDaBan = (long) query.getSingleResult();
+        }
+        return tongSPDaBan;
+    }
+
 }

@@ -17,6 +17,7 @@ import entity.KhuVuc;
 import entity.KhuyenMai;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import repository.ICommonRepository;
 import repository.impl.BanRepositoryImpl;
@@ -53,34 +54,54 @@ public class HoaDonChiTietServiceImpl implements ICommonService<HoaDonChiTietCus
         String mess = "";
         DonHangChiTiet dhct = repoDonHangCT.findById(t.getIdDonHangChiTiet());
         HoaDon hoaDon = repoHoaDon.findById(t.getIdHoaDon());
-        if (this.repo.addOrUpdate(new HoaDonChiTiet(t.getId(), t.getSoLuong(), 
+        if (this.repo.addOrUpdate(new HoaDonChiTiet(t.getId(), t.getSoLuong(),
                 t.getDonGia(), dhct, hoaDon))) {
-            mess  ="Thanh cong";
-        }else{
+            mess = "Thanh cong";
+        } else {
             mess = "That bai";
         }
         return mess;
     }
-     public String addOrUpdate(HoaDonChiTiet t) {
-        if(!this.repo.addOrUpdate(t)){
-           return "Thất bại";
-       }
-       return "Thành công";
+
+    public String addOrUpdate(HoaDonChiTiet t) {
+        if (!this.repo.addOrUpdate(t)) {
+            return "Thất bại";
+        }
+        return "Thành công";
     }
-    public List<HoaDonChiTiet> getAll(){
+
+    public List<HoaDonChiTiet> getAll() {
         return this.repo.getAll();
     }
 
-    public List<HDCTBanHang> getHDCTByHD(String key){
+    public List<HDCTBanHang> getHDCTByHD(String key) {
         return this.repo.getHDCTByHD(key);
     }
-    public List<HDCTBanHangCustom> getDSHDCT(int idhd){
+
+    public List<HDCTBanHangCustom> getDSHDCT(int idhd) {
         return this.repo.getDSHDCT(idhd);
     }
-     public String UpdateChiTiet(HoaDonChiTiet hdct){
+
+    public String UpdateChiTiet(HoaDonChiTiet hdct) {
         if (this.repo.UpdateChiTiet(hdct)) {
             return "Thanh cong";
         }
         return "That bai";
+    }
+
+    public BigDecimal getTongTien() {
+        return this.repo.getTongTien();
+    }
+
+    public long getTongSPDaBan() {
+        return this.repo.getTongSPDaBan();
+    }
+
+    public BigDecimal getTongTienByDay(Date date1, Date date2) {
+        return this.repo.getTongTienByDay(date1, date2);
+    }
+
+    public long getTongSPDaBanByDay(Date date1, Date date2) {
+        return this.repo.getTongSPDaBanByDay(date1, date2);
     }
 }

@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -95,6 +96,18 @@ public class HoaDonServiceImpl implements ICommonService<HoaDonCustom> {
 
     public HoaDon getByMaDH(String madh) {
         return this.repo.getByMaDH(madh);
+    }
+    
+    public List<HDBanhang> getListHDByNgayTao(Date date1,Date date2) {
+        return this.repo.getListHDByNgayTao(date1, date2);
+    }
+    
+    public long getTongHD(){
+        return this.repo.getTongHD();
+    }
+    
+    public long getTongHDByDay(Date date1, Date date2){
+        return this.repo.getTongHDByDay(date1, date2);
     }
 
     public String ExportExcel(List<HDBanhang> lists) {

@@ -4,14 +4,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import util.UserHelper;
 
-public class TrangChu extends javax.swing.JFrame {
+public class  TrangChu extends javax.swing.JFrame {
 
     public static TrangChu main;
 
     public TrangChu() {
         initComponents();
         main = this;
-        show(new ThongKeJPanel());
+//        show(new ThongKeJPanel());
 //        lblTaiKhoan.setText(UserHelper.getUser.getMaNV());
 //        lblVaiTro.setText(UserHelper.getUser.VaiTroToString());
 //        checkRole(UserHelper.getUser.isVaiTro());

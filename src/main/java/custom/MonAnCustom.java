@@ -37,4 +37,12 @@ public class MonAnCustom {
 
     private int idDanhMuc;
 
+    public MonAnCustom(String maMon, String tenMon, String donViTinh, BigDecimal donGia) {
+        this.maMon = maMon;
+        this.tenMon = tenMon;
+        this.donViTinh = donViTinh;
+        this.donGia = donGia;
+    }
+
+    
 }

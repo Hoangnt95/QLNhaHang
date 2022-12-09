@@ -1,6 +1,7 @@
 package view;
 
 import custom.NhanVienCustom;
+import custom.SenEmail;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,77 +15,74 @@ public class NhanVienJpanel extends javax.swing.JPanel {
 
     private DefaultTableModel model;
     private ICommonService service;
-    private List<NhanVienCustom> lists; 
+    private List<NhanVienCustom> lists;
     public static int count = 0;
-    
+    SenEmail senEmail = new SenEmail();
+
     public NhanVienJpanel() {
         initComponents();
         service = new NhanVienServiceImpl();
         lists = service.findByKey("");
         loadDataToTable(lists);
     }
-    
-    private NhanVienCustom getData(){
+
+    private NhanVienCustom getData() {
         NhanVienCustom nhanVien = new NhanVienCustom();
         String ma = txtMaNV.getText().trim();
         nhanVien.setMaNV(ma);
         JOptionPane.showMessageDialog(this, nhanVien.getMaNV());
         String ten = txtTenNV.getText().trim();
         nhanVien.setHoTenNV(ten);
-        
+
         if (radioNam.isSelected()) {
             nhanVien.setGioiTinh(0);
-        }else{
+        } else {
             nhanVien.setGioiTinh(1);
         }
-        
+
         String diaChi = txtDiaChi.getText().trim();
         nhanVien.setDiaChi(diaChi);
-         
+
         String thanhPho = txtThanhPho.getText().trim();
         nhanVien.setThanhPho(thanhPho);
-        
+
         String sdt = txtSdt.getText().trim();
         nhanVien.setSdt(sdt);
-        
+
         String email = txtEmail.getText().trim();
         nhanVien.setEmail(email);
-        
-        
+
         Date ngaySinh = txtNgSinh.getDate();
         nhanVien.setNgaySinh(ngaySinh);
-        
-        String matKhau = txtMatKhau.getText().trim();
-        nhanVien.setMatKhau(matKhau);
-        
+
         if (radioQuanLy.isSelected()) {
             nhanVien.setVaiTro(true);
-        }else{
+        } else {
             nhanVien.setVaiTro(false);
         }
-        
+
         int trangThai = cbbTrangThai.getSelectedIndex();
         nhanVien.setTrangThai(trangThai);
-        
+
         return nhanVien;
     }
 
-    private void loadDataToTable(List<NhanVienCustom> lists){
+    private void loadDataToTable(List<NhanVienCustom> lists) {
         model = (DefaultTableModel) tblNhanVien.getModel();
         model.setRowCount(0);
         for (NhanVienCustom list : lists) {
             model.addRow(list.toRowData());
         }
     }
-    
-    private void fillData(int index){
+
+    private void fillData(int index) {
         NhanVienCustom nhanVien = lists.get(index);
-        
+
         txtMaNV.setText(nhanVien.getMaNV());
         txtTenNV.setText(nhanVien.getHoTenNV());
         if (nhanVien.getGioiTinh() == 0) {
             radioNam.setSelected(true);
-        }else{
+        } else {
             radioNu.setSelected(true);
         }
         txtDiaChi.setText(nhanVien.getDiaChi());
@@ -92,14 +90,14 @@ public class NhanVienJpanel extends javax.swing.JPanel {
         txtSdt.setText(nhanVien.getSdt());
         txtEmail.setText(nhanVien.getEmail());
         txtNgSinh.setDate(nhanVien.getNgaySinh());
-        txtMatKhau.setText(nhanVien.getMatKhau());
         if (nhanVien.isVaiTro() == true) {
             radioQuanLy.setSelected(true);
-        }else{
+        } else {
             radioNhanVien.setSelected(true);
         }
         cbbTrangThai.setSelectedItem(nhanVien.TrangThaiToString());
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -123,9 +121,7 @@ public class NhanVienJpanel extends javax.swing.JPanel {
         txtSdt = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        txtMatKhau = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         btnThem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
@@ -175,9 +171,6 @@ public class NhanVienJpanel extends javax.swing.JPanel {
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setText("Ngày sinh:");
-
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel10.setText("Mật khẩu:");
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel11.setText("Vai trò:");
@@ -236,7 +229,6 @@ public class NhanVienJpanel extends javax.swing.JPanel {
                             .addComponent(jLabel4)
                             .addComponent(jLabel7)
                             .addComponent(jLabel9)
-                            .addComponent(jLabel10)
                             .addComponent(jLabel11)
                             .addComponent(jLabel12)
                             .addComponent(jLabel6))
@@ -264,7 +256,6 @@ public class NhanVienJpanel extends javax.swing.JPanel {
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(cbbTrangThai, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(txtNgSinh, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
-                                        .addComponent(txtMatKhau, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txtSdt, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txtThanhPho, javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,11 +299,7 @@ public class NhanVienJpanel extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel9)
                     .addComponent(txtNgSinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                .addGap(62, 62, 62)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(radioNhanVien)
@@ -355,28 +342,24 @@ public class NhanVienJpanel extends javax.swing.JPanel {
             }
         });
 
-        btnLast.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\QLNhaHang\\image\\iconApp\\previous.png")); // NOI18N
         btnLast.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLastActionPerformed(evt);
             }
         });
 
-        btnPrevious.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\QLNhaHang\\image\\iconApp\\rewind-button.png")); // NOI18N
         btnPrevious.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPreviousActionPerformed(evt);
             }
         });
 
-        btnNext.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\QLNhaHang\\image\\iconApp\\forward-button.png")); // NOI18N
         btnNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNextActionPerformed(evt);
             }
         });
 
-        btnFirst.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\Desktop\\QLNhaHang\\image\\iconApp\\next.png")); // NOI18N
         btnFirst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFirstActionPerformed(evt);
@@ -481,6 +464,9 @@ public class NhanVienJpanel extends javax.swing.JPanel {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         NhanVienCustom nhanVien = this.getData();
+        String matKhau = "123456";
+        senEmail.createAndSendEmail(nhanVien.getEmail(), matKhau);
+        nhanVien.setMatKhau(matKhau);
         String result = service.addOrUpdate(nhanVien);
         JOptionPane.showMessageDialog(this, result);
         lists = service.findByKey("");
@@ -572,7 +558,6 @@ public class NhanVienJpanel extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cbbTrangThai;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -596,7 +581,6 @@ public class NhanVienJpanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtDiaChi;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtMaNV;
-    private javax.swing.JTextField txtMatKhau;
     private com.toedter.calendar.JDateChooser txtNgSinh;
     private javax.swing.JTextField txtSdt;
     private javax.swing.JTextField txtTenNV;

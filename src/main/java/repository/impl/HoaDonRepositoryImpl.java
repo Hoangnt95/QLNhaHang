@@ -18,7 +18,6 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import repository.ICommonRepository;
 import util.HibernateUtil;
-
 /**
  *
  * @author admin
@@ -91,9 +90,30 @@ public class HoaDonRepositoryImpl implements ICommonRepository<HoaDon, HoaDonCus
                     + "LEFT JOIN Ban c ON b.idBan.id = c.id "
                     + "LEFT JOIN KhuyenMai d ON d.id = b.idKhuyenMai.id "
                     + "LEFT JOIN KhuVuc e ON e.id = c.idKhuVuc.id "
-                    + "LEFT JOIN NhanVien n ON n.id = b.idNhanVien.id WHERE a.maHd LIKE CONCAT('%',:ma,'%')";
+                    + "LEFT JOIN NhanVien n ON n.id = b.idNhanVien.id"
+                    + " WHERE a.maHd LIKE CONCAT('%',:maHD,'%') OR n.maNV LIKE CONCAT('%',:maNV,'%')";
             Query query = session.createQuery(hql);
-            query.setParameter("ma", ma);
+            query.setParameter("maHD", ma);
+            query.setParameter("maNV", ma);
+            list = query.getResultList();
+        }
+        return list;
+    }
+
+    public List<HDBanhang> getListHDByNgayTao(Date date1, Date date2) {
+        List<HDBanhang> list = new ArrayList<>();
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+            String hql = "select new custom.HDBanhang(a.maHd, a.ngayTao, a.trangThai,"
+                    + "a.ghiChu, d.maGiamGia, c.maBan, n.maNV, e.maKV) From HoaDon a "
+                    + "LEFT JOIN DonHang b ON a.idDonHang.id = b.id "
+                    + "LEFT JOIN Ban c ON b.idBan.id = c.id "
+                    + "LEFT JOIN KhuyenMai d ON d.id = b.idKhuyenMai.id "
+                    + "LEFT JOIN KhuVuc e ON e.id = c.idKhuVuc.id "
+                    + "LEFT JOIN NhanVien n ON n.id = b.idNhanVien.id"
+                    + " WHERE a.ngayTao >= :date1 AND a.ngayTao <= :date2";
+            Query query = session.createQuery(hql);
+            query.setParameter("date1", date1);
+            query.setParameter("date2", date2);
             list = query.getResultList();
         }
         return list;
@@ -152,6 +172,29 @@ public class HoaDonRepositoryImpl implements ICommonRepository<HoaDon, HoaDonCus
             hd = query.getSingleResult();
         }
         return hd;
+    }
+
+    public long getTongHD() {
+        long tongHd = 0;
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+            String hql = "SELECT count(m.id) FROM HoaDon m where m.trangThai = 0";
+            Query query = session.createQuery(hql);
+            tongHd = (long) query.getSingleResult();
+        }
+        return tongHd;
+    }
+
+    public long getTongHDByDay(Date date1, Date date2) {
+        long tongHd = 0;
+        try ( Session session = HibernateUtil.getFACTORY().openSession()) {
+            String hql = "SELECT count(m.id) FROM HoaDon m where m.trangThai = 0"
+                    + " AND m.ngayTao between :date1 and :date2";
+            Query query = session.createQuery(hql);
+            query.setParameter("date1", date1);
+            query.setParameter("date2", date2);
+            tongHd = (long) query.getSingleResult();
+        }
+        return tongHd;
     }
 
 }

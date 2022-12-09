@@ -137,8 +137,8 @@ public class FrameQMK extends javax.swing.JFrame {
     private void btnGuiMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiMaActionPerformed
         // TODO add your handling code here:
         String email = txtEmail.getText().trim();
-
-        NhanVienCustom NhanVien = service.getNhanVienByEmail(UserHelper.ma, email);
+        NhanVienCustom NhanVien = new NhanVienCustom();
+//        NhanVienCustom NhanVien = service.getNhanVienByEmail(UserHelper.ma, email);
         if (NhanVien != null) {
             UserHelper.getUser = NhanVien;
             SenEmail senEmail = new SenEmail();
